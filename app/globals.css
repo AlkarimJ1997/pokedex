@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-	--nav-height: min(10vh, 3.5rem);
+	--nav-height: min(10vh, 4rem);
 	--footer-height: var(--nav-height);
 	--main-height: calc(100vh - var(--nav-height) - var(--footer-height));
 	--pokemon-card-width: 15.625rem; /* 250px */

@@ -8,7 +8,7 @@ const PokemonGrid = ({ pokemon }: PokemonGridProps) => {
 	if (!pokemon || pokemon.length === 0) return null;
 
 	return (
-		<div className='max-h-pokemonGridHeight overflow-y-scroll md:max-h-[80vh] lg:max-h-[85vh]'>
+		<div className='max-h-pokemonGridHeight overflow-y-scroll md:max-h-[80vh] lg:max-h-[83vh]'>
 			<div className='mt-8 grid grid-cols-pokemonGrid place-items-center gap-y-4 lg:gap-x-16 lg:gap-y-12'>
 				{pokemon
 					.filter(data => data.image)
