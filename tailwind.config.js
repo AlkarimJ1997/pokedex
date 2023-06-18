@@ -18,6 +18,9 @@ module.exports = {
 					border: 'rgba(255, 255, 255, 0.23)',
 				},
 			},
+			width: {
+				cardWidth: 'var(--pokemon-card-width)',
+			},
 			height: {
 				navHeight: 'var(--nav-height)',
 				footerHeight: 'var(--footer-height)',

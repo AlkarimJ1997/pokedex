@@ -27,7 +27,7 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 	console.log(types);
 
 	return (
-		<div className='w-[250px] rounded-2xl bg-secondary-100 p-4 shadow-2xl'>
+		<div className='w-cardWidth rounded-2xl bg-secondary-100 p-4 shadow-2xl'>
 			<div className='flex justify-between'>
 				<Icon
 					type={plusRoute ? FaPlus : FaTrash}
@@ -50,7 +50,7 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 				src={image}
 				alt={name}
 				onClick={() => router.push(`/pokemon/${id}`)}
-				className='h-40 cursor-pointer object-contain mb-4'
+				className='mb-4 h-40 cursor-pointer object-contain'
 				loading='lazy'
 			/>
 			<div className='grid w-full grid-cols-pokemonCardTypes gap-4'>
@@ -58,9 +58,7 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 					const typeData = pokemonTypes[type];
 
 					return (
-						<div
-							key={i}
-							className='flex flex-col items-center justify-center gap-2'>
+						<div key={i} className='space-y-3 text-center'>
 							<Image
 								src={typeData.image}
 								alt={type}
