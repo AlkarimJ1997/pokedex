@@ -1,6 +1,6 @@
 const Wrapper = ({ children }: { children: React.ReactNode }) => {
 	return (
-		<main className='min-h-[90vh] border-x border-x-secondary-border bg-secondary-50 md:mx-20'>
+		<main className='h-mainHeight bg-secondary-50 md:mx-20 md:border-x md:border-x-secondary-border'>
 			{children}
 		</main>
 	);

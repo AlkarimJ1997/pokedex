@@ -18,6 +18,14 @@ module.exports = {
 					border: 'rgba(255, 255, 255, 0.23)',
 				},
 			},
+			height: {
+				navHeight: 'var(--nav-height)',
+				footerHeight: 'var(--footer-height)',
+				mainHeight: 'var(--main-height)',
+			},
+			maxHeight: {
+				pokemonGridHeight: 'calc(var(--main-height) - 15vh)',
+			},
 			gridTemplateColumns: {
 				pokemonGrid: 'repeat(auto-fit, minmax(var(--pokemon-card-width), 1fr))',
 				pokemonCardTypes: 'repeat(auto-fit, minmax(3.75rem, 1fr))',
