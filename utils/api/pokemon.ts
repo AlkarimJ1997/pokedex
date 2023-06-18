@@ -51,9 +51,7 @@ export const getPokemonData = async (pokemons: Pokemon[]) => {
 				const response = await fetch(pokemon.url);
 				const { name, id, types: typesJson, sprites } = await response.json();
 				const image = images[id] ?? defaultImages[id] ?? null;
-				const types = typesJson.map(({ type: { name } }: PokemonTypeJson) => ({
-					[name]: pokemonTypes[name],
-				}));
+				const types = typesJson.map((json: PokemonTypeJson) => json.type.name);
 
 				return { name, id, image, types };
 				// return { name, id, image: sprites.other.home.front_default, types };

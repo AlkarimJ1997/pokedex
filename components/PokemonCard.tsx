@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { FaPlus, FaTrash } from 'react-icons/fa';
 import { IoGitCompare } from 'react-icons/io5';
+import { pokemonTypes } from '@/data/pokemonTypes';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Icon from '@/components/Icon';
@@ -23,7 +24,7 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 		return pathname === '/pokemon' || pathname === '/search';
 	}, [pathname]);
 
-  console.log(types);
+	console.log(types);
 
 	return (
 		<div className='w-[250px] rounded-2xl bg-secondary-100 p-4 shadow-2xl'>
@@ -49,24 +50,24 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 				src={image}
 				alt={name}
 				onClick={() => router.push(`/pokemon/${id}`)}
-				className='h-40 cursor-pointer object-contain'
+				className='h-40 cursor-pointer object-contain mb-4'
 				loading='lazy'
 			/>
 			<div className='grid w-full grid-cols-pokemonCardTypes gap-4'>
 				{types.map((type, i) => {
-					const pokemonType = Object.keys(type)[0];
+					const typeData = pokemonTypes[type];
 
 					return (
 						<div
 							key={i}
-							className='mt-2 flex flex-col items-center justify-center gap-2'>
+							className='flex flex-col items-center justify-center gap-2'>
 							<Image
-								src={type[pokemonType as keyof typeof type].image}
-								alt={pokemonType}
+								src={typeData.image}
+								alt={type}
 								className='h-8 object-contain'
 								loading='lazy'
 							/>
-							<h6 className='text-sm'>{pokemonType}</h6>
+							<h6 className='text-sm'>{type}</h6>
 						</div>
 					);
 				})}

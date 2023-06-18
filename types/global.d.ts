@@ -1,6 +1,8 @@
 import { pokemonTypes } from '@/data/pokemonTypes';
 
 declare global {
+	type PokemonType = keyof typeof pokemonTypes;
+
 	interface PokemonData {
 		name: string;
 		id: number;
@@ -13,7 +15,7 @@ declare global {
 	}
 
 	// Pokemon types
-	type PokemonType = (typeof pokemonTypes)[keyof typeof pokemonTypes];
+	// type PokemonType = (typeof pokemonTypes)[keyof typeof pokemonTypes];
 }
 
 export {};
