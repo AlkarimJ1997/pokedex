@@ -6,11 +6,19 @@ const Search = async () => {
 	const pokemon = await getInitialPokemon();
 	const pokemonData = await getPokemonData(getRandomFromArray(pokemon, 20));
 
+	const getPokemonByName = async (name: string) => {
+		if (!name) return;
+
+		const singlePokemon = pokemon.filter(p => p.name.includes(name));
+		const data = await getPokemonData(singlePokemon);
+	};
+
 	return (
 		<div className='pt-4 uppercase text-slate-200'>
 			<input
 				type='text'
 				placeholder='Search Pokemon'
+				onChange={e => getPokemonByName(e.target.value)}
 				className='mx-auto block w-full max-w-[95%] rounded-md bg-secondary-100 p-4 text-xl placeholder-secondary-400 shadow-2xl'
 			/>
 			<PokemonGrid pokemon={pokemonData} />
