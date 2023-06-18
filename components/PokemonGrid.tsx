@@ -12,14 +12,14 @@ type PokemonGridProps = {
 
 const PokemonGrid = ({ pokemon }: PokemonGridProps) => {
 	const pathname = usePathname();
-  const router = useRouter();
+	const router = useRouter();
 
 	const plusRoute = useMemo(() => {
 		return pathname === '/pokemon' || pathname === '/search';
 	}, [pathname]);
 
 	return (
-		<div className='max-h-[80vh] overflow-y-scroll'>
+		<div className='max-h-[85vh] overflow-y-scroll'>
 			<div className='m-16 mt-8 grid grid-cols-pokemonGrid gap-16'>
 				{pokemon &&
 					pokemon.length > 0 &&
@@ -43,7 +43,7 @@ const PokemonGrid = ({ pokemon }: PokemonGridProps) => {
 								<Image
 									src={data.image!}
 									alt={data.name}
-                  onClick={() => router.push(`/pokemon/${data.id}`)}
+									onClick={() => router.push(`/pokemon/${data.id}`)}
 									className='h-40 cursor-pointer object-contain'
 									loading='lazy'
 								/>

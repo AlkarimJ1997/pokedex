@@ -28,7 +28,7 @@ const Navbar = () => {
 
 	return (
 		<header>
-			<nav className='grid h-full grid-cols-[5rem_auto_5rem] place-items-center border-b border-b-secondary-border'>
+			<nav className='grid grid-cols-[5rem_auto_5rem] place-items-center border-b border-b-secondary-border'>
 				<Image
 					src={pokeballIcon}
 					alt='Pokeball'
