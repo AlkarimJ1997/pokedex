@@ -18,12 +18,8 @@ module.exports = {
 					border: 'rgba(255, 255, 255, 0.23)',
 				},
 			},
-			gridTemplateRows: {
-				layout:
-					'minmax(0, min(10vh, 4.375rem)) 1fr minmax(0, min(10vh, 4.375rem))',
-			},
 			gridTemplateColumns: {
-				pokemonGrid: 'repeat(auto-fit, minmax(15.625rem, 1fr))',
+				pokemonGrid: 'repeat(auto-fit, minmax(var(--pokemon-card-width), 1fr))',
 				pokemonCardTypes: 'repeat(auto-fit, minmax(3.75rem, 1fr))',
 			},
 		},

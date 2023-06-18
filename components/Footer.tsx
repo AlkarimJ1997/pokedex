@@ -2,7 +2,7 @@ import { MdOutlinePowerSettingsNew } from 'react-icons/md';
 
 const Footer = () => {
 	return (
-		<footer className='grid grid-cols-[5rem_auto_5rem] place-items-center border-t border-t-secondary-border'>
+		<footer className='grid min-h-[5vh] grid-cols-[5rem_auto_5rem] place-items-center border-t border-t-secondary-border'>
 			<div />
 			<ul
 				role='list'

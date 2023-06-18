@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+	--pokemon-card-width: 15.625rem; /* 250px */
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
 	width: 0.4rem;

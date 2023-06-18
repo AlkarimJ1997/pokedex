@@ -7,11 +7,11 @@ const Search = async () => {
 	const pokemonData = await getPokemonData(getRandomFromArray(pokemon, 20));
 
 	return (
-		<div className='uppercase text-slate-200'>
+		<div className='pt-4 uppercase text-slate-200'>
 			<input
 				type='text'
 				placeholder='Search Pokemon'
-				className='w-full p-4 text-xl bg-secondary-100 shadow-2xl placeholder-secondary-400'
+				className='mx-auto block w-full max-w-[95%] rounded-md bg-secondary-100 p-4 text-xl placeholder-secondary-400 shadow-2xl'
 			/>
 			<PokemonGrid pokemon={pokemonData} />
 		</div>

@@ -21,11 +21,9 @@ export default function RootLayout({
 		<html lang='en'>
 			<body className={`${outfit.className} bg-black`}>
 				<Background />
-				<div className='grid h-screen w-screen grid-rows-layout'>
-					<Navbar />
-					<Wrapper>{children}</Wrapper>
-					<Footer />
-				</div>
+				<Navbar />
+				<Wrapper>{children}</Wrapper>
+				<Footer />
 			</body>
 		</html>
 	);
