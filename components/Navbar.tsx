@@ -19,7 +19,9 @@ const Navbar = () => {
 	useEffect(() => {
 		if (!slidingRef.current || Number.isNaN(sliderWidth)) return;
 
-		const activeLink = navLinks.findIndex(({ path }) => path === pathname);
+		const activeLink = navLinks.findIndex(({ path }) =>
+			pathname.startsWith(path)
+		);
 
 		slidingRef.current.style.left = `calc(${activeLink} * ${sliderWidth}%)`;
 	}, [slidingRef, pathname, sliderWidth]);
