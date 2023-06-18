@@ -20,13 +20,11 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body className={`${inter.className} bg-black`}>
-				<div className='max-w-screen relative h-screen overflow-hidden'>
-					<Background />
-					<div className='z-[1] grid h-screen w-screen grid-cols-1 grid-rows-[5vh_auto_5vh] bg-primary-500 backdrop-blur-2xl'>
-						<Navbar />
-						<Wrapper>{children}</Wrapper>
-						<Footer />
-					</div>
+				<Background />
+				<div className='grid h-screen w-screen grid-rows-layout'>
+					<Navbar />
+					<Wrapper>{children}</Wrapper>
+					<Footer />
 				</div>
 			</body>
 		</html>
