@@ -41,7 +41,7 @@ export const getInitialPokemon = async (): Promise<PokemonJson[]> => {
 
 export const getPokemonData = async (pokemons: PokemonJson[]) => {
 	try {
-		const data: PokemonData[] = await Promise.all(
+		const data: Pokemon[] = await Promise.all(
 			pokemons.map(async pokemon => {
 				const response = await fetch(pokemon.url);
 				const { name, id, types: typesJson, sprites } = await response.json();

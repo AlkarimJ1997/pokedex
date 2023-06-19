@@ -8,14 +8,14 @@ declare global {
 		url: string;
 	};
 
-	interface PokemonData {
+	interface Pokemon {
 		name: string;
 		id: number;
 		image: string | null;
 		types: PokemonType[];
 	}
 
-	interface UserPokemonData extends PokemonData {
+	interface UserPokemonData extends Pokemon {
 		firebaseId?: string;
 	}
 
