@@ -9,7 +9,7 @@ type PokemonTypeJson = {
 	};
 };
 
-export const getInitialPokemon = async (): Promise<Pokemon[]> => {
+export const getInitialPokemon = async (): Promise<PokemonJson[]> => {
 	try {
 		const response = await fetch(POKEMON_URL);
 		const data = await response.json();
@@ -39,7 +39,7 @@ export const getInitialPokemon = async (): Promise<Pokemon[]> => {
 // 	}
 // };
 
-export const getPokemonData = async (pokemons: Pokemon[]) => {
+export const getPokemonData = async (pokemons: PokemonJson[]) => {
 	try {
 		const data: PokemonData[] = await Promise.all(
 			pokemons.map(async pokemon => {

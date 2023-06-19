@@ -3,7 +3,7 @@ import { pokemonTypes } from '@/data/pokemonTypes';
 declare global {
 	type PokemonType = keyof typeof pokemonTypes;
 
-	type Pokemon = {
+	type PokemonJson = {
 		name: string;
 		url: string;
 	};
