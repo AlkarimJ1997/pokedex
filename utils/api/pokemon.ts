@@ -1,11 +1,6 @@
 import { POKEMON_URL, defaultImages, images } from '@/constants';
 import { pokemonTypes } from '@/data/pokemonTypes';
 
-type Pokemon = {
-	name: string;
-	url: string;
-};
-
 type PokemonTypeJson = {
 	slot: number;
 	type: {
