@@ -17,7 +17,7 @@ const usePokemonStore = create<PokemonState>(set => ({
 		set(state => ({
 			filter,
 			filteredPokemon: state.pokemon.filter(pokemon =>
-				pokemon.name.toLowerCase().includes(filter.toLowerCase())
+				pokemon.name.toLowerCase().startsWith(filter.toLowerCase())
 			),
 		})),
 }));
