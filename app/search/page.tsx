@@ -1,5 +1,4 @@
 import { getInitialPokemon, getPokemonData } from '@/utils/api/pokemon';
-import usePokemonStore from '@/hooks/usePokemonStore';
 import PokemonGrid from '@/components/PokemonGrid';
 import SearchInput from '@/components/SearchInput';
 

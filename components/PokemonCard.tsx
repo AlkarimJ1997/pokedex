@@ -46,13 +46,16 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 				/>
 			</div>
 			<h3 className='mt-4 text-center'>{name}</h3>
-			<Image
-				src={image}
-				alt={name}
-				onClick={() => router.push(`/pokemon/${id}`)}
-				className='mb-4 h-40 cursor-pointer object-contain'
-				loading='lazy'
-			/>
+			<div className='relative mb-4 h-40 cursor-pointer'>
+				<Image
+					fill
+					src={image}
+					alt={name}
+					onClick={() => router.push(`/pokemon/${id}`)}
+          className='object-contain'
+					loading='lazy'
+				/>
+			</div>
 			<div className='grid w-full grid-cols-pokemonCardTypes gap-4'>
 				{types.map((type, i) => {
 					const typeData = pokemonTypes[type];

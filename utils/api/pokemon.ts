@@ -48,8 +48,8 @@ export const getPokemonData = async (pokemons: PokemonJson[]) => {
 				const image = images[id] ?? defaultImages[id] ?? null;
 				const types = typesJson.map((json: PokemonTypeJson) => json.type.name);
 
-				return { name, id, image, types };
-				// return { name, id, image: sprites.other.home.front_default, types };
+				// return { name, id, image, types };
+				return { name, id, image: sprites.other.home.front_default, types };
 			})
 		);
 
