@@ -24,8 +24,6 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 		return pathname === '/pokemon' || pathname === '/search';
 	}, [pathname]);
 
-	console.log(types);
-
 	return (
 		<div className='w-cardWidth rounded-2xl bg-secondary-100 p-4 shadow-2xl'>
 			<div className='flex justify-between'>
