@@ -7,6 +7,9 @@ module.exports = {
 	],
 	theme: {
 		extend: {
+			screens: {
+				xs: '475px',
+			},
 			colors: {
 				primary: {
 					500: 'rgba(4, 6, 20, 0.85)',
@@ -51,7 +54,7 @@ module.exports = {
 			gridTemplateColumns: {
 				pokemonGrid: 'repeat(auto-fit, minmax(var(--pokemon-card-width), 1fr))',
 				pokemonCardTypes: 'repeat(auto-fit, minmax(3.75rem, 1fr))',
-        typeChart: 'repeat(auto-fit, minmax(2.5rem, max-content))',
+				typeChart: 'repeat(auto-fit, minmax(2.5rem, max-content))',
 			},
 		},
 	},
