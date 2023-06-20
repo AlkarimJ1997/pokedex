@@ -24,7 +24,7 @@ const ComparePokemon = ({ pokemon, isEmpty }: ComparePokemonProps) => {
 							<button
 								key={name}
 								className={clsx(
-									'col-span-3 border border-slate-50 bg-transparent py-4 uppercase tracking-widest text-slate-300 transition duration-300 ease-in-out xs:col-span-1',
+									'col-span-3 border border-slate-50 bg-transparent py-4 uppercase tracking-widest text-slate-300 transition duration-300 ease-in-out xs:col-span-1 lg:text-xl',
 									customStyles
 								)}>
 								{name}
