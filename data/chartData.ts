@@ -4,8 +4,8 @@ type ChartData = {
 };
 
 export const chartData = [
-	{ category: 'Strengths', key: 'strength' },
-	{ category: 'Weaknesses', key: 'weakness' },
-	{ category: 'Resistances', key: 'resistance' },
-	{ category: 'Vulnerabilities', key: 'vulnerable' },
+	{ category: 'Strength', key: 'strength' },
+	{ category: 'Weakness', key: 'weakness' },
+	{ category: 'Resistance', key: 'resistance' },
+	{ category: 'Vulnerable', key: 'vulnerable' },
 ] as const;

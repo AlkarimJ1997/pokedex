@@ -10,8 +10,8 @@ interface TypeListProps {
 
 const TypeList = ({ category, statBreakdown }: TypeListProps) => {
 	return (
-		<div className='flex flex-col items-center gap-y-4 rounded-md border border-slate-700 p-4 sm:flex-row sm:gap-8 md:gap-y-0 md:border-none'>
-			<h3 className='uppercase tracking-widest text-slate-200 md:text-lg'>
+		<div className='grid place-items-center gap-y-4 rounded-md border border-slate-700 p-4 text-center sm:grid-cols-[max-content_1fr] sm:gap-x-4 md:border-none xl:grid-cols-[25%_75%]'>
+			<h3 className='uppercase tracking-widest text-slate-200 md:text-lg lg:justify-self-end'>
 				{category}
 			</h3>
 			<ul
