@@ -59,19 +59,17 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 		}
 
 		try {
-			const typeStats = [];
-
-			types.forEach(type => {
+			const typeStats = types.map(type => {
 				const breakdown = pokemonTypes[type];
 				const { image, strength, weakness, resistance, vulnerable } = breakdown;
 
-				typeStats.push({
+				return {
 					[type]: image.src,
 					strength,
 					weakness,
 					resistance,
 					vulnerable,
-				});
+				};
 			});
 
 			await addDoc(pokemonCollection, {
