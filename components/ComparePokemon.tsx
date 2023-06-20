@@ -1,4 +1,6 @@
+import CompareHeader from '@/components/CompareHeader';
 import EmptyState from '@/components/EmptyState';
+import TypeChart from '@/components/TypeChart';
 import { pokemonTypes } from '@/data/pokemonTypes';
 import Image from 'next/image';
 import { FaPlus } from 'react-icons/fa';
@@ -99,36 +101,14 @@ const ComparePokemon = ({ pokemon, isEmpty }: ComparePokemonProps) => {
 		<div className='w-full'>
 			{isEmpty && <EmptyState />}
 			{pokemon && (
-				<div className='w-full'>
-					<div className='w-full'>
-						<h3 className='text-center text-lg uppercase tracking-widest text-slate-200'>
-							{pokemon.name}
-						</h3>
-						<div className='relative h-40 w-full lg:h-52'>
-							<Image
-								fill
-								src={pokemon.image!}
-								alt={pokemon.name}
-								className='object-contain'
-							/>
-						</div>
-					</div>
+				<div className='w-full space-y-8'>
+					<CompareHeader name={pokemon.name} image={pokemon.image!} />
+					<TypeChart types={pokemon.types} />
 				</div>
 			)}
 			{/* {pokemon && (
 				<div className='grid h-full grid-cols-1 grid-rows-[95%_5%]'>
 					<div className='grid w-full grid-rows-[40%_60%] uppercase tracking-widest text-slate-200'>
-						<div className='flex flex-col items-center justify-center'>
-							<h3>{pokemon.name}</h3>
-							<div className='relative h-40 w-full'>
-								<Image
-									fill
-									src={pokemon.image!}
-									alt={pokemon.name}
-									className='object-contain'
-								/>
-							</div>
-						</div>
 						<div className='flex max-h-full w-full flex-col items-start gap-4 overflow-x-hidden overflow-y-scroll pb-4'>
 							<div className='grid w-full grid-cols-[25%_75%] gap-8'>
 								<h4 className='pokemon-types-title'>Type</h4>

@@ -7,10 +7,10 @@ const Search = async () => {
 	const pokemon = await getPokemonData(pokemonJson);
 
 	return (
-		<div className='pt-4 uppercase text-slate-200'>
+		<section className='pt-4 uppercase text-slate-200'>
 			<SearchInput />
 			<PokemonGrid pokemon={pokemon} />
-		</div>
+		</section>
 	);
 };
 
