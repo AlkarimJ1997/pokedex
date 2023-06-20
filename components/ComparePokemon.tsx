@@ -101,7 +101,7 @@ const ComparePokemon = ({ pokemon, isEmpty }: ComparePokemonProps) => {
 		<div className='w-full lg:h-full lg:overflow-y-auto'>
 			{isEmpty && <EmptyState />}
 			{pokemon && (
-				<div className='w-full space-y-8'>
+				<div className='w-full space-y-8 lg:flex lg:h-full lg:flex-col lg:justify-center'>
 					<CompareHeader name={pokemon.name} image={pokemon.image!} />
 					<TypeChart types={pokemon.types} />
 				</div>
