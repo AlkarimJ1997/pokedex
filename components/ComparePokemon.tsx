@@ -1,3 +1,7 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
+import useStore from '@/hooks/useStore';
 import EmptyState from '@/components/EmptyState';
 import CompareHeader from '@/components/CompareHeader';
 import TypeChart from '@/components/TypeChart';
@@ -9,6 +13,9 @@ interface ComparePokemonProps {
 }
 
 const ComparePokemon = ({ pokemon, isEmpty }: ComparePokemonProps) => {
+	const removeFromCompare = useStore(state => state.removeFromCompare);
+	const router = useRouter();
+
 	return (
 		<div className='w-full lg:h-full'>
 			{isEmpty && <EmptyState />}
@@ -22,10 +29,14 @@ const ComparePokemon = ({ pokemon, isEmpty }: ComparePokemonProps) => {
 						<CompareButton className='hover:border-blue-700 hover:bg-blue-700'>
 							Add
 						</CompareButton>
-						<CompareButton className='hover:border-green-500 hover:bg-green-500'>
+						<CompareButton
+							onClick={() => router.push(`/pokemon/${pokemon.id}`)}
+							className='hover:border-green-500 hover:bg-green-500'>
 							View
 						</CompareButton>
-						<CompareButton className='hover:border-red-500 hover:bg-red-500'>
+						<CompareButton
+							onClick={() => removeFromCompare(pokemon.id)}
+							className='hover:border-red-500 hover:bg-red-500'>
 							Remove
 						</CompareButton>
 					</div>
