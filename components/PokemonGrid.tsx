@@ -6,6 +6,8 @@ import toast from 'react-hot-toast';
 import useStore from '@/hooks/useStore';
 import CustomToast from '@/components/CustomToast';
 import PokemonCard from '@/components/PokemonCard';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/lib/firebase/config';
 
 type PokemonGridProps = {
 	pokemon: UserPokemonData[];
@@ -18,6 +20,24 @@ const PokemonGrid = ({ pokemon }: PokemonGridProps) => {
 	const filteredPokemon = useStore(state => state.filteredPokemon);
 	const setPokemon = useStore(state => state.setPokemon);
 
+	const setUser = useStore(state => state.setUser);
+
+	// Firebase auth
+	useEffect(() => {
+		if (!setUser) return;
+
+		onAuthStateChanged(auth, currentUser => {
+			if (!currentUser || !currentUser.email) return;
+
+			// addToast({
+			// 	type: 'success',
+			// 	message: `Welcome back, ${currentUser.displayName}!`,
+			// });
+			setUser({ email: currentUser.email });
+		});
+	}, [setUser]);
+
+	// Toast notifications
 	useEffect(() => {
 		if (!clearToasts || !toasts || toasts.length === 0) return;
 
@@ -43,6 +63,7 @@ const PokemonGrid = ({ pokemon }: PokemonGridProps) => {
 		clearToasts();
 	}, [toasts, clearToasts]);
 
+	// Setting global pokemon state
 	useEffect(() => {
 		if (!setPokemon || !pokemon || pokemon.length === 0) return;
 

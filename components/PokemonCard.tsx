@@ -60,20 +60,13 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 
 		try {
 			const typeStats = types.map(type => {
-				const breakdown = pokemonTypes[type];
-				const { image, strength, weakness, resistance, vulnerable } = breakdown;
+				const { image, ...stats } = pokemonTypes[type];
 
-				return {
-					[type]: image.src,
-					strength,
-					weakness,
-					resistance,
-					vulnerable,
-				};
+				return [type, { ...stats, image: image.src }];
 			});
 
 			await addDoc(pokemonCollection, {
-				pokemon: { id, name, types: typeStats },
+				pokemon: { id, name, types: Object.fromEntries(typeStats) },
 			});
 
 			addToast({
