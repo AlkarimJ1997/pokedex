@@ -10,6 +10,8 @@ import clsx from 'clsx';
 import useStore from '@/hooks/useStore';
 import Image from 'next/image';
 import Icon from '@/components/Icon';
+import { addDoc } from 'firebase/firestore';
+import { pokemonCollection } from '@/lib/firebase/config';
 
 interface PokemonCardProps {
 	id: number;
@@ -19,6 +21,8 @@ interface PokemonCardProps {
 }
 
 const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
+	const userInfo = useStore(state => state.userInfo);
+	const userPokemon = useStore(state => state.userPokemon);
 	const addToCompare = useStore(state => state.addToCompare);
 	const addToast = useStore(state => state.addToast);
 
@@ -29,12 +33,58 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 		return pathname === '/pokemon' || pathname === '/search';
 	}, [pathname]);
 
-	const handleAdd = () => {
+	const handleCompareAdd = () => {
 		addToCompare({ id, name, image, types });
 		addToast({
 			type: 'custom',
 			message: `${capitalize(name)} added to compare!`,
 		});
+	};
+
+	const handleListAdd = async () => {
+		if (!userInfo.email) {
+			addToast({
+				type: 'error',
+				message: 'You must be logged in to save Pokemon!',
+			});
+			return;
+		}
+
+		if (userPokemon.find(pokemon => pokemon.id === id)) {
+			addToast({
+				type: 'custom',
+				message: `${capitalize(name)} is already saved!`,
+			});
+			return;
+		}
+
+		try {
+			const typeStats = [];
+
+			types.forEach(type => {
+				const breakdown = pokemonTypes[type];
+				const { image, strength, weakness, resistance, vulnerable } = breakdown;
+
+				typeStats.push({
+					[type]: image.src,
+					strength,
+					weakness,
+					resistance,
+					vulnerable,
+				});
+			});
+
+			await addDoc(pokemonCollection, {
+				pokemon: { id, name, types: typeStats },
+			});
+
+			addToast({
+				type: 'custom',
+				message: `${capitalize(name)} added to your list!`,
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
@@ -43,6 +93,7 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 				<Icon
 					type={plusRoute ? FaPlus : FaTrash}
 					label={plusRoute ? 'Add Pokemon' : 'Remove Pokemon'}
+					onClick={plusRoute ? handleListAdd : undefined}
 					size={16}
 					className={clsx(
 						'transition duration-300 ease-in-out hover:scale-[1.75]',
@@ -53,7 +104,7 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 					type={IoGitCompare}
 					label='Compare Pokemon'
 					size={20}
-					onClick={handleAdd}
+					onClick={handleCompareAdd}
 					className='text-blue-600 transition duration-300 ease-in-out hover:scale-[1.75]'
 				/>
 			</div>

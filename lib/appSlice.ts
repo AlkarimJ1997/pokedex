@@ -6,14 +6,22 @@ interface Toast {
 	type: ToastType;
 }
 
+interface UserInfo {
+	email: string;
+}
+
 export interface AppState {
 	toasts: Toast[];
+	userInfo: UserInfo;
 	addToast: (toast: Toast) => void;
 	clearToasts: () => void;
+	setUser: (userInfo: UserInfo) => void;
 }
 
 export const createAppSlice: StateCreator<AppState> = set => ({
 	toasts: [],
+	userInfo: { email: '' },
 	addToast: toast => set(state => ({ toasts: [...state.toasts, toast] })),
 	clearToasts: () => set({ toasts: [] }),
+	setUser: (userInfo: UserInfo) => set({ userInfo }),
 });

@@ -5,6 +5,7 @@ export interface PokemonState {
 	filteredPokemon: Pokemon[];
 	filter: string;
 	compareQueue: Pokemon[];
+	userPokemon: Pokemon[];
 	setPokemon: (pokemon: Pokemon[]) => void;
 	setFilter: (filter: string) => void;
 	addToCompare: (pokemon: Pokemon) => void;
@@ -16,6 +17,7 @@ export const createPokemonSlice: StateCreator<PokemonState> = set => ({
 	filteredPokemon: [],
 	filter: '',
 	compareQueue: [],
+	userPokemon: [],
 	setPokemon: pokemon => set({ pokemon, filteredPokemon: pokemon }),
 	setFilter: filter =>
 		set(state => ({

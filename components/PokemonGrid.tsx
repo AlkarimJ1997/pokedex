@@ -25,12 +25,16 @@ const PokemonGrid = ({ pokemon }: PokemonGridProps) => {
 			switch (type) {
 				case 'success':
 					toast.success(message);
+					break;
 				case 'loading':
 					toast.loading(message);
+					break;
 				case 'error':
 					toast.error(message);
+					break;
 				case 'blank':
 					toast(message);
+					break;
 				default:
 					toast.custom(t => <CustomToast toast={t} message={message} />);
 			}
