@@ -3,7 +3,7 @@ import { FaPlus } from 'react-icons/fa';
 
 const EmptyState = () => {
 	return (
-		<div className='text-center'>
+		<div className='py-4 text-center sm:py-20 md:py-32 lg:flex lg:h-full lg:flex-col lg:items-center lg:justify-center lg:py-0'>
 			<Icon
 				type={FaPlus}
 				size={80}
