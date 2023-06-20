@@ -17,3 +17,7 @@ export const fetchImages = (context: string) => {
 	});
 	return images;
 };
+
+export const capitalize = (str: string) => {
+	return str.charAt(0).toUpperCase() + str.slice(1);
+};

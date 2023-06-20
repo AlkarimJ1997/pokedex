@@ -1,11 +1,11 @@
 'use client';
 
 import { DebounceInput } from 'react-debounce-input';
-import usePokemonStore from '@/hooks/usePokemonStore';
+import useStore from '@/hooks/useStore';
 
 const SearchInput = () => {
-	const filter = usePokemonStore(state => state.filter);
-	const setFilter = usePokemonStore(state => state.setFilter);
+	const filter = useStore(state => state.filter);
+	const setFilter = useStore(state => state.setFilter);
 
 	return (
 		<DebounceInput

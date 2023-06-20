@@ -1,5 +1,6 @@
 import './globals.css';
 import { Outfit } from 'next/font/google';
+import { Toaster } from 'react-hot-toast';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Wrapper from '@/components/content/Wrapper';
@@ -24,6 +25,7 @@ export default function RootLayout({
 				<Navbar />
 				<Wrapper>{children}</Wrapper>
 				<Footer />
+				<Toaster />
 			</body>
 		</html>
 	);

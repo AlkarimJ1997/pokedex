@@ -2,7 +2,9 @@
 
 import { useEffect } from 'react';
 import { getRandomFromArray } from '@/utils/helpers';
-import usePokemonStore from '@/hooks/usePokemonStore';
+import toast from 'react-hot-toast';
+import useStore from '@/hooks/useStore';
+import CustomToast from '@/components/CustomToast';
 import PokemonCard from '@/components/PokemonCard';
 
 type PokemonGridProps = {
@@ -10,8 +12,32 @@ type PokemonGridProps = {
 };
 
 const PokemonGrid = ({ pokemon }: PokemonGridProps) => {
-	const filteredPokemon = usePokemonStore(state => state.filteredPokemon);
-	const setPokemon = usePokemonStore(state => state.setPokemon);
+	const toasts = useStore(state => state.toasts);
+	const clearToasts = useStore(state => state.clearToasts);
+
+	const filteredPokemon = useStore(state => state.filteredPokemon);
+	const setPokemon = useStore(state => state.setPokemon);
+
+	useEffect(() => {
+		if (!clearToasts || !toasts || toasts.length === 0) return;
+
+		toasts.forEach(({ type, message }) => {
+			switch (type) {
+				case 'success':
+					toast.success(message);
+				case 'loading':
+					toast.loading(message);
+				case 'error':
+					toast.error(message);
+				case 'blank':
+					toast(message);
+				default:
+					toast.custom(t => <CustomToast toast={t} message={message} />);
+			}
+		});
+
+		clearToasts();
+	}, [toasts, clearToasts]);
 
 	useEffect(() => {
 		if (!setPokemon || !pokemon || pokemon.length === 0) return;

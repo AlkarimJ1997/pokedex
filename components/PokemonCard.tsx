@@ -5,7 +5,9 @@ import { usePathname, useRouter } from 'next/navigation';
 import { FaPlus, FaTrash } from 'react-icons/fa';
 import { IoGitCompare } from 'react-icons/io5';
 import { pokemonTypes } from '@/data/pokemonTypes';
+import { capitalize } from '@/utils/helpers';
 import clsx from 'clsx';
+import useStore from '@/hooks/useStore';
 import Image from 'next/image';
 import Icon from '@/components/Icon';
 
@@ -17,12 +19,23 @@ interface PokemonCardProps {
 }
 
 const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
+	const addToCompare = useStore(state => state.addToCompare);
+	const addToast = useStore(state => state.addToast);
+
 	const pathname = usePathname();
 	const router = useRouter();
 
 	const plusRoute = useMemo(() => {
 		return pathname === '/pokemon' || pathname === '/search';
 	}, [pathname]);
+
+	const handleAdd = () => {
+		addToCompare({ id, name, image, types });
+		addToast({
+			type: 'custom',
+			message: `${capitalize(name)} added to compare!`,
+		});
+	};
 
 	return (
 		<div className='w-cardWidth rounded-2xl bg-secondary-100 p-4 shadow-2xl'>
@@ -40,6 +53,7 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 					type={IoGitCompare}
 					label='Compare Pokemon'
 					size={20}
+					onClick={handleAdd}
 					className='text-blue-600 transition duration-300 ease-in-out hover:scale-[1.75]'
 				/>
 			</div>
@@ -50,7 +64,7 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 					src={image}
 					alt={name}
 					onClick={() => router.push(`/pokemon/${id}`)}
-          className='object-contain'
+					className='object-contain'
 					loading='lazy'
 				/>
 			</div>

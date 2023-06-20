@@ -18,8 +18,24 @@ module.exports = {
 					border: 'rgba(255, 255, 255, 0.23)',
 				},
 			},
+			keyframes: {
+				enter: {
+					'0%': { transform: 'scale(0.9)', opacity: 0 },
+					'100%': { transform: 'scale(1)', opacity: 1 },
+				},
+				leave: {
+					'0%': { transform: 'scale(1)', opacity: 1 },
+					'100%': { transform: 'scale(0.9)', opacity: 0 },
+				},
+			},
+			animation: {
+				'bounce-fast': 'bounce 0.75s infinite',
+				enter: 'enter 200ms ease-out',
+				leave: 'leave 150ms ease-in forwards',
+			},
 			width: {
 				cardWidth: 'var(--pokemon-card-width)',
+				toastWidth: 'var(--toast-width)',
 			},
 			height: {
 				navHeight: 'var(--nav-height)',
