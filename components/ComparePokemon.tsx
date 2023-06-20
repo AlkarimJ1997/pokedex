@@ -98,7 +98,7 @@ const ComparePokemon = ({ pokemon, isEmpty }: ComparePokemonProps) => {
 	// };
 
 	return (
-		<div className='w-full'>
+		<div className='w-full lg:h-full lg:overflow-y-auto'>
 			{isEmpty && <EmptyState />}
 			{pokemon && (
 				<div className='w-full space-y-8'>
