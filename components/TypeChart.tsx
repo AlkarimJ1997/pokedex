@@ -7,6 +7,10 @@ interface TypeChartProps {
 }
 
 const TypeChart = ({ types }: TypeChartProps) => {
+	const selfTypes = () => {
+		return types.map(type => ({ name: type, image: pokemonTypes[type].image }));
+	};
+
 	const createPokemonChart = (statType: StatType) => {
 		const statsSet = new Set<string>();
 		const typeBreakdown = types
@@ -21,7 +25,8 @@ const TypeChart = ({ types }: TypeChartProps) => {
 	};
 
 	return (
-		<div className='space-y-6 lg:h-[90%] lg:self-start lg:overflow-y-auto'>
+		<div className='space-y-6 lg:h-[90%] lg:space-y-2 lg:self-start lg:overflow-y-auto'>
+			<TypeList key='Type' category='Type' statBreakdown={selfTypes()} />
 			{chartData.map(({ category, key }) => (
 				<TypeList
 					key={category}
