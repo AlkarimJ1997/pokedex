@@ -5,7 +5,7 @@ type ChartData = {
 
 export const chartData = [
 	{ category: 'Strength', key: 'strength' },
-	{ category: 'Weakness', key: 'weakness' },
 	{ category: 'Resistance', key: 'resistance' },
 	{ category: 'Vulnerable', key: 'vulnerable' },
+	{ category: 'Weakness', key: 'weakness' },
 ] as const;
