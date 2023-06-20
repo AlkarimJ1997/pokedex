@@ -1,6 +1,5 @@
-import clsx from 'clsx';
-import CompareHeader from '@/components/CompareHeader';
 import EmptyState from '@/components/EmptyState';
+import CompareHeader from '@/components/CompareHeader';
 import TypeChart from '@/components/TypeChart';
 import CompareButton from '@/components/CompareButton';
 
