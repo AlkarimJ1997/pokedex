@@ -1,11 +1,8 @@
+import { compareButtons } from '@/data/compareButtons';
+import clsx from 'clsx';
 import CompareHeader from '@/components/CompareHeader';
 import EmptyState from '@/components/EmptyState';
 import TypeChart from '@/components/TypeChart';
-import { compareButtons } from '@/data/compareButtons';
-import { pokemonTypes } from '@/data/pokemonTypes';
-import clsx from 'clsx';
-import Image from 'next/image';
-import { FaPlus } from 'react-icons/fa';
 
 interface ComparePokemonProps {
 	pokemon: Pokemon;
@@ -36,21 +33,6 @@ const ComparePokemon = ({ pokemon, isEmpty }: ComparePokemonProps) => {
 					</div>
 				</div>
 			)}
-			{/* {pokemon && (
-				<div className='grid h-full grid-cols-1 grid-rows-[95%_5%]'>
-					<div className='grid w-full grid-cols-3'>
-						<button className='border border-slate-50 bg-transparent text-xl uppercase tracking-widest text-slate-300 transition duration-300 ease-in-out hover:border-blue-700 hover:bg-blue-700'>
-							Add
-						</button>
-						<button className='border border-slate-50 bg-transparent text-xl uppercase tracking-widest text-slate-300 transition duration-300 ease-in-out hover:border-green-500 hover:bg-green-500'>
-							View
-						</button>
-						<button className='border border-slate-50 bg-transparent text-xl uppercase tracking-widest text-slate-300 transition duration-300 ease-in-out hover:border-red-500 hover:bg-red-500'>
-							Remove
-						</button>
-					</div>
-				</div>
-			)} */}
 		</div>
 	);
 };
