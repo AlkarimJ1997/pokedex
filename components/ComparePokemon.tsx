@@ -11,29 +11,11 @@ interface ComparePokemonProps {
 }
 
 const ComparePokemon = ({ pokemon, isEmpty }: ComparePokemonProps) => {
-	// const createStatsArray = (types: PokemonType[], statType: StatType) => {
-	// 	const statsArray: { name: string; image: string }[] = [];
-	// 	const statsSet = new Set<string>();
-
-	// 	types.forEach(type => {
-	// 		const typeData = pokemonTypes[type];
-
-	// 		typeData[statType].forEach(stat => {
-	// 			if (!statsSet.has(stat)) {
-	// 				statsSet.add(stat);
-	// 				statsArray.push({ name: stat, image: pokemonTypes[stat].image });
-	// 			}
-	// 		});
-	// 	});
-
-	// 	return statsArray;
-	// };
-
 	return (
 		<div className='w-full lg:h-full lg:overflow-y-auto'>
 			{isEmpty && <EmptyState />}
 			{pokemon && (
-				<div className='w-full space-y-8 lg:grid lg:h-full lg:grid-rows-[30%_70%] lg:place-items-center'>
+				<div className='w-full space-y-8 lg:grid lg:h-full lg:grid-rows-[30%_70%] lg:place-items-center lg:gap-8 lg:space-y-0'>
 					<CompareHeader name={pokemon.name} image={pokemon.image!} />
 					<TypeChart types={pokemon.types} />
 				</div>
