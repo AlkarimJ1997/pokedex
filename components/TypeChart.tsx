@@ -25,7 +25,7 @@ const TypeChart = ({ types }: TypeChartProps) => {
 	};
 
 	return (
-		<div className='space-y-6 lg:h-[90%] lg:space-y-2 lg:self-start lg:overflow-y-auto'>
+		<div className='space-y-6 md:space-y-4 lg:h-[90%] lg:space-y-0 lg:self-start lg:overflow-y-auto'>
 			<TypeList key='Type' category='Type' statBreakdown={selfTypes()} />
 			{chartData.map(({ category, key }) => (
 				<TypeList
