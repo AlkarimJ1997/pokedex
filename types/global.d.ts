@@ -2,6 +2,7 @@ import { pokemonTypes } from '@/data/pokemonTypes';
 
 declare global {
 	type PokemonType = keyof typeof pokemonTypes;
+	type StatType = Exclude<keyof (typeof pokemonTypes)[PokemonType], 'image'>;
 
 	type PokemonJson = {
 		name: string;
@@ -18,9 +19,6 @@ declare global {
 	interface UserPokemonData extends Pokemon {
 		firebaseId?: string;
 	}
-
-	// Pokemon types
-	// type PokemonType = (typeof pokemonTypes)[keyof typeof pokemonTypes];
 }
 
 export {};
