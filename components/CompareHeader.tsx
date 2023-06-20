@@ -8,7 +8,7 @@ interface CompareHeaderProps {
 const CompareHeader = ({ name, image }: CompareHeaderProps) => {
 	return (
 		<header className='w-full'>
-			<h2 className='text-center text-lg uppercase tracking-widest text-slate-200'>
+			<h2 className='text-center text-lg uppercase tracking-widest text-slate-200 md:text-xl'>
 				{name}
 			</h2>
 			<div className='relative h-40 w-full lg:h-52'>

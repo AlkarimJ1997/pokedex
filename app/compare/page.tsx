@@ -7,7 +7,7 @@ const Compare = () => {
 	const compareQueue = useStore(state => state.compareQueue);
 
 	return (
-		<section className='flex flex-col justify-around overflow-y-auto p-4 lg:flex-row lg:items-center'>
+		<section className='h-full overflow-y-auto space-y-12 p-4 lg:flex lg:items-center'>
 			<ComparePokemon
 				pokemon={compareQueue[0]}
 				isEmpty={compareQueue.length === 0}
