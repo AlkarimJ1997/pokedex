@@ -14,9 +14,7 @@ const TypeList = ({ category, statBreakdown }: TypeListProps) => {
 			<h3 className='uppercase tracking-widest text-slate-200 md:text-lg'>
 				{category}
 			</h3>
-			<ul
-				role='list'
-				className='mx-auto flex max-w-[90%] flex-wrap gap-4 md:mx-0 md:max-w-full'>
+			<ul role='list' className='flex flex-wrap gap-4'>
 				{statBreakdown.map(({ name, image }, i) => (
 					<li key={i} title={name}>
 						<Image
