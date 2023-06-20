@@ -1,4 +1,3 @@
-import { compareButtons } from '@/data/compareButtons';
 import clsx from 'clsx';
 import CompareHeader from '@/components/CompareHeader';
 import EmptyState from '@/components/EmptyState';
@@ -20,12 +19,15 @@ const ComparePokemon = ({ pokemon, isEmpty }: ComparePokemonProps) => {
 						<TypeChart types={pokemon.types} />
 					</div>
 					<div className='grid w-full grid-cols-3 gap-4 lg:mx-auto lg:max-w-5xl'>
-						{compareButtons.map(({ name, customStyles }) => (
+						{['Add', 'View', 'Remove'].map(name => (
 							<button
 								key={name}
 								className={clsx(
-									'col-span-3 border border-slate-50 bg-transparent py-4 uppercase tracking-widest text-slate-300 transition duration-300 ease-in-out xs:col-span-1 lg:text-xl',
-									customStyles
+									'col-span-3 border border-slate-50 bg-transparent py-4 uppercase tracking-widest text-slate-300 transition duration-300 ease-in-out xs:col-span-1 lg:py-0 lg:text-xl',
+									name === 'Add' && 'hover:border-blue-700 hover:bg-blue-700',
+									name === 'View' &&
+										'hover:border-green-500 hover:bg-green-500',
+									name === 'Remove' && 'hover:border-red-500 hover:bg-red-500'
 								)}>
 								{name}
 							</button>
