@@ -51,6 +51,7 @@ module.exports = {
 			gridTemplateColumns: {
 				pokemonGrid: 'repeat(auto-fit, minmax(var(--pokemon-card-width), 1fr))',
 				pokemonCardTypes: 'repeat(auto-fit, minmax(3.75rem, 1fr))',
+        typeChart: 'repeat(auto-fit, minmax(2.5rem, max-content))',
 			},
 		},
 	},
