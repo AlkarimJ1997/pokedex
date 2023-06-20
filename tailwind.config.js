@@ -18,6 +18,9 @@ module.exports = {
 					border: 'rgba(255, 255, 255, 0.23)',
 				},
 			},
+			fontSize: {
+				body: 'clamp(.875rem, 3vw, 1.125rem)',
+			},
 			keyframes: {
 				enter: {
 					'0%': { transform: 'scale(0.9)', opacity: 0 },
