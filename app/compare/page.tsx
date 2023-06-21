@@ -1,6 +1,6 @@
 'use client';
 
-import ComparePokemon from '@/components/ComparePokemon';
+import ComparePokemon from '@/components/compare/ComparePokemon';
 import useStore from '@/hooks/useStore';
 
 const Compare = () => {

@@ -2,10 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 import useStore from '@/hooks/useStore';
-import EmptyState from '@/components/EmptyState';
-import CompareHeader from '@/components/CompareHeader';
-import TypeChart from '@/components/TypeChart';
-import CompareButton from '@/components/CompareButton';
+import EmptyState from '@/components/compare/EmptyState';
+import CompareHeader from '@/components/compare/CompareHeader';
+import TypeChart from '@/components/compare/TypeChart';
+import CompareButton from '@/components/compare/CompareButton';
 
 interface ComparePokemonProps {
 	pokemon: Pokemon;

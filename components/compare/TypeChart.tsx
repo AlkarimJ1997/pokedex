@@ -1,6 +1,6 @@
 import { pokemonTypes } from '@/data/pokemonTypes';
 import { chartData } from '@/data/chartData';
-import TypeList from '@/components/TypeList';
+import TypeList from '@/components/compare/TypeList';
 
 interface TypeChartProps {
 	types: PokemonType[];
