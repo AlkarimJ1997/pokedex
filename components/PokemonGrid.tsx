@@ -6,7 +6,7 @@ import useStore from '@/hooks/useStore';
 import PokemonCard from '@/components/PokemonCard';
 
 type PokemonGridProps = {
-	pokemon: UserPokemon[];
+	pokemon: Pokemon[];
 };
 
 const PokemonGrid = ({ pokemon }: PokemonGridProps) => {

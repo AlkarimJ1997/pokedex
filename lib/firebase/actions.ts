@@ -49,9 +49,9 @@ export const getUserPokemon = async (userInfo: UserInfo) => {
 			fetchedPokemon.docs.map(async doc => {
 				const pokemon = (await doc.data().pokemon) as Pokemon;
 
-				return { ...pokemon, firebaseId: `${pokemon.id}` };
+				return { ...pokemon };
 			})
-		)) as UserPokemon[];
+		)) as Pokemon[];
 	} catch (error) {
 		console.log(error);
 		return [];
