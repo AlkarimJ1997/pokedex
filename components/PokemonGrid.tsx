@@ -15,9 +15,10 @@ type PokemonGridProps = {
 
 const PokemonGrid = ({ pokemon }: PokemonGridProps) => {
 	const toasts = useStore(state => state.toasts);
+	const allPokemon = useStore(state => state.pokemon);
 	const filteredPokemon = useStore(state => state.filteredPokemon);
-	
-  const clearToasts = useStore(state => state.clearToasts);
+
+	const clearToasts = useStore(state => state.clearToasts);
 	const setPokemon = useStore(state => state.setPokemon);
 
 	// Toast notifications
@@ -50,14 +51,17 @@ const PokemonGrid = ({ pokemon }: PokemonGridProps) => {
 	useEffect(() => {
 		if (!setPokemon || !pokemon || pokemon.length === 0) return;
 
+		// If the state is already set, don't set it again
+		if (allPokemon.length > 0) return;
+
 		setPokemon(pokemon);
-	}, [pokemon, setPokemon]);
+	}, [pokemon, setPokemon, allPokemon]);
 
 	if (!filteredPokemon || filteredPokemon.length === 0) return null;
 
 	return (
-		<div className='max-h-pokemonGridHeight overflow-y-scroll pb-4 md:max-h-[80vh] md:pb-[min(15vh,4rem)] lg:max-h-[85vh]'>
-			<div className='mx-auto mt-8 grid max-w-[95%] grid-cols-pokemonGrid place-items-center gap-y-4 lg:gap-x-16 lg:gap-y-12'>
+		<div className='max-h-pokemonGridHeight overflow-y-scroll pb-4 md:max-h-[80vh] md:pb-[min(12vh,3rem)] lg:max-h-[85vh]'>
+			<div className='mx-auto mt-8 grid max-w-[95%] grid-cols-pokemonGrid place-items-center gap-4 lg:gap-x-16 lg:gap-y-12'>
 				{getRandomFromArray(filteredPokemon, 20)
 					.filter(data => data.image)
 					.sort((a, b) => a.id - b.id)

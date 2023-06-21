@@ -25,10 +25,10 @@ const List = () => {
 	}, [userInfo, setUserPokemon]);
 
 	return (
-		<div className='h-full w-full max-w-full uppercase text-slate-200'>
+		<section className='h-full w-full max-w-full uppercase text-slate-200'>
 			{userInfo.email ? (
-				<div className='max-h-pokemonGridHeight overflow-y-scroll pb-4 md:max-h-[80vh] md:pb-[min(15vh,4rem)] lg:max-h-[85vh]'>
-					<div className='mx-auto mt-8 grid max-w-[95%] grid-cols-pokemonGrid place-items-center gap-y-4 lg:gap-x-16 lg:gap-y-12'>
+				<div className='max-h-[80vh] overflow-y-scroll pb-4 sm:max-h-[85vh] lg:pb-[min(12vh,3rem)]'>
+					<div className='mx-auto mt-8 grid max-w-[95%] grid-cols-pokemonGrid place-items-center gap-4 lg:gap-x-16 lg:gap-y-12'>
 						{userPokemon.map(data => (
 							<PokemonCard
 								key={data.id}
@@ -43,7 +43,7 @@ const List = () => {
 			) : (
 				<Login />
 			)}
-		</div>
+		</section>
 	);
 };
 
