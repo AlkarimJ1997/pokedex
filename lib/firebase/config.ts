@@ -15,8 +15,10 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-export const usersCollection = collection(db, 'users');
-export const pokemonCollection = collection(db, 'pokemonList');
+const usersCollection = collection(db, 'users');
+const pokemonCollection = collection(db, 'pokemonList');
+
+export { auth, db, usersCollection, pokemonCollection };
