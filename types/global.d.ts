@@ -16,8 +16,12 @@ declare global {
 		types: PokemonType[];
 	}
 
-	interface UserPokemonData extends Pokemon {
-		firebaseId?: string;
+	interface UserPokemon extends Pokemon {
+		firebaseId?: number;
+	}
+
+	interface UserInfo {
+		email: string;
 	}
 }
 

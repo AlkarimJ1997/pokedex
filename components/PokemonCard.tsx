@@ -66,7 +66,7 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 			});
 
 			await addDoc(pokemonCollection, {
-				pokemon: { id, name, types: Object.fromEntries(typeStats) },
+				pokemon: { id, name, image, types: Object.fromEntries(typeStats) },
 			});
 
 			addToast({

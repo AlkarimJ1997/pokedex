@@ -6,10 +6,6 @@ interface Toast {
 	type: ToastType;
 }
 
-interface UserInfo {
-	email: string;
-}
-
 export interface AppState {
 	toasts: Toast[];
 	userInfo: UserInfo;

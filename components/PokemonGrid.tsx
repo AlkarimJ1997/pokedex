@@ -10,7 +10,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/lib/firebase/config';
 
 type PokemonGridProps = {
-	pokemon: UserPokemonData[];
+	pokemon: UserPokemon[];
 };
 
 const PokemonGrid = ({ pokemon }: PokemonGridProps) => {
