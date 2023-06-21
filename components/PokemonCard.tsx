@@ -6,10 +6,6 @@ import { FaPlus, FaTrash } from 'react-icons/fa';
 import { IoGitCompare } from 'react-icons/io5';
 import { pokemonTypes } from '@/data/pokemonTypes';
 import { capitalize } from '@/utils/helpers';
-import {
-	removeUserPokemonFromFirebase,
-	saveUserPokemon,
-} from '@/lib/firebase/actions';
 import clsx from 'clsx';
 import useStore from '@/hooks/useStore';
 import Image from 'next/image';
@@ -46,7 +42,7 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 		});
 	};
 
-	const handleListAdd = async () => {
+	const handleListAdd = () => {
 		if (!userInfo.email) {
 			addToast({
 				type: 'error',
@@ -64,15 +60,15 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 		}
 
 		const pokemon = { id, name, image, types };
-		const response = await saveUserPokemon(pokemon, userInfo);
 
-		if (response.ok) {
-			addToast({
-				type: 'custom',
-				message: `${capitalize(name)} added to your list!`,
-			});
-			addToList(pokemon);
-		}
+		addToList(pokemon, userInfo, resolve => {
+			if (resolve) {
+				addToast({
+					type: 'custom',
+					message: `${capitalize(name)} added to your list!`,
+				});
+			}
+		});
 	};
 
 	const handleListDelete = () => {

@@ -1,5 +1,10 @@
-import { removeUserPokemonFromFirebase } from '@/lib/firebase/actions';
+import {
+	removeUserPokemonFromFirebase,
+	saveUserPokemon,
+} from '@/lib/firebase/actions';
 import { StateCreator } from 'zustand';
+
+type Resolver = (ok: boolean) => void;
 
 export interface PokemonState {
 	pokemon: Pokemon[];
@@ -12,8 +17,12 @@ export interface PokemonState {
 	addToCompare: (pokemon: Pokemon) => void;
 	removeFromCompare: (pokemonId: number) => void;
 	setUserPokemon: (pokemon: Pokemon[]) => void;
-	addToList: (pokemon: UserPokemon) => void;
-	removeFromList: (pokemonId: number, callback: (ok: boolean) => void) => void;
+	addToList: (
+		pokemon: UserPokemon,
+		userInfo: UserInfo,
+		callback: Resolver
+	) => void;
+	removeFromList: (pokemonId: number, callback: Resolver) => void;
 }
 
 export const createPokemonSlice: StateCreator<PokemonState> = set => ({
@@ -47,8 +56,16 @@ export const createPokemonSlice: StateCreator<PokemonState> = set => ({
 			compareQueue: state.compareQueue.filter(p => p.id !== pokemonId),
 		})),
 	setUserPokemon: pokemon => set({ userPokemon: pokemon }),
-	addToList: pokemon =>
-		set(state => ({ userPokemon: [...state.userPokemon, pokemon] })),
+	addToList: async (pokemon, userInfo, callback) => {
+		const response = await saveUserPokemon(pokemon, userInfo);
+
+		if (response.ok) {
+			set(state => ({ userPokemon: [...state.userPokemon, pokemon] }));
+			callback(true);
+		}
+
+		callback(false);
+	},
 	removeFromList: async (pokemonId, callback) => {
 		const response = await removeUserPokemonFromFirebase(pokemonId);
 
