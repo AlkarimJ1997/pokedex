@@ -19,22 +19,6 @@ const PokemonGrid = ({ pokemon }: PokemonGridProps) => {
 	
   const clearToasts = useStore(state => state.clearToasts);
 	const setPokemon = useStore(state => state.setPokemon);
-	const setUser = useStore(state => state.setUser);
-
-	// Firebase auth
-	// useEffect(() => {
-	// 	if (!setUser) return;
-
-	// 	onAuthStateChanged(auth, currentUser => {
-	// 		if (!currentUser || !currentUser.email) return;
-
-	// 		// addToast({
-	// 		// 	type: 'success',
-	// 		// 	message: `Welcome back, ${currentUser.displayName}!`,
-	// 		// });
-	// 		setUser({ email: currentUser.email });
-	// 	});
-	// }, [setUser]);
 
 	// Toast notifications
 	useEffect(() => {

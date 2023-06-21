@@ -1,12 +1,51 @@
 'use client';
 
+import { useEffect } from 'react';
 import useStore from '@/hooks/useStore';
 import Login from '@/components/Login';
 import PokemonCard from '@/components/PokemonCard';
+import { getDocs, query, where } from 'firebase/firestore';
+import { pokemonCollection } from '@/lib/firebase/config';
 
 const List = () => {
 	const userInfo = useStore(state => state.userInfo);
 	const userPokemon = useStore(state => state.userPokemon);
+
+	const setUserPokemon = useStore(state => state.setUserPokemon);
+
+	useEffect(() => {
+		if (!userInfo.email || !setUserPokemon) return;
+
+		const fetchUserPokemon = async () => {
+			try {
+				const q = query(
+					pokemonCollection,
+					where('email', '==', userInfo.email)
+				);
+				const fetchedPokemon = await getDocs(q);
+
+				const pokemonData: UserPokemon[] = [];
+
+				fetchedPokemon.forEach(async doc => {
+					const pokemon = (await doc.data().pokemon) as Pokemon;
+          console.log(pokemon);
+					const types = pokemon.types.map(name => ({
+						[name]: pokemon[name],
+					}));
+
+					pokemonData.push({ ...pokemon, firebaseId: pokemon.id, types });
+				});
+
+				console.log(pokemonData);
+				setUserPokemon(pokemonData);
+			} catch (error) {
+				console.log(error);
+				return [];
+			}
+		};
+
+		fetchUserPokemon();
+	}, [userInfo, setUserPokemon]);
 
 	return (
 		<div className='h-full w-full max-w-full uppercase text-slate-200'>
