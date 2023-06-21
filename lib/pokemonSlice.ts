@@ -1,3 +1,4 @@
+import { removeUserPokemonFromFirebase } from '@/lib/firebase/actions';
 import { StateCreator } from 'zustand';
 
 export interface PokemonState {
@@ -48,8 +49,13 @@ export const createPokemonSlice: StateCreator<PokemonState> = set => ({
 	setUserPokemon: pokemon => set({ userPokemon: pokemon }),
 	addToList: pokemon =>
 		set(state => ({ userPokemon: [...state.userPokemon, pokemon] })),
-	removeFromList: pokemonId =>
-		set(state => ({
-			userPokemon: state.userPokemon.filter(p => p.firebaseId !== pokemonId),
-		})),
+	removeFromList: async pokemonId => {
+		const response = await removeUserPokemonFromFirebase(pokemonId);
+
+		if (response.ok) {
+			set(state => ({
+				userPokemon: state.userPokemon.filter(p => p.id !== pokemonId),
+			}));
+		}
+	},
 });

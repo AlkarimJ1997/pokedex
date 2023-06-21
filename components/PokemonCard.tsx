@@ -75,16 +75,13 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 		}
 	};
 
-	const handleListDelete = async () => {
-		const response = await removeUserPokemonFromFirebase(id);
+	const handleListDelete = () => {
+		removeFromList(id);
 
-		if (response.ok) {
-			addToast({
-				type: 'custom',
-				message: `${capitalize(name)} removed from your list!`,
-			});
-			removeFromList(id);
-		}
+		addToast({
+			type: 'custom',
+			message: `${capitalize(name)} removed from your list!`,
+		});
 	};
 
 	return (
