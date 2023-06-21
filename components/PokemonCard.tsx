@@ -60,15 +60,9 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 		}
 
 		try {
-			const typeStats = types.map(type => {
-				const { image, ...stats } = pokemonTypes[type];
-
-				return [type, { ...stats, image: image.src }];
-			});
-
 			await addDoc(pokemonCollection, {
-				pokemon: { id, name, image, types: Object.fromEntries(typeStats) },
-        email: userInfo.email,
+				pokemon: { id, name, image, types },
+				email: userInfo.email,
 			});
 
 			addToast({

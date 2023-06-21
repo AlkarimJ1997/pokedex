@@ -26,17 +26,12 @@ const List = () => {
 
 				const pokemonData: UserPokemon[] = [];
 
-				fetchedPokemon.forEach(async doc => {
+				await fetchedPokemon.forEach(async doc => {
 					const pokemon = (await doc.data().pokemon) as Pokemon;
-          console.log(pokemon);
-					const types = pokemon.types.map(name => ({
-						[name]: pokemon[name],
-					}));
 
-					pokemonData.push({ ...pokemon, firebaseId: pokemon.id, types });
+					pokemonData.push({ ...pokemon, firebaseId: pokemon.id });
 				});
 
-				console.log(pokemonData);
 				setUserPokemon(pokemonData);
 			} catch (error) {
 				console.log(error);
@@ -49,7 +44,7 @@ const List = () => {
 
 	return (
 		<div className='h-full w-full max-w-full uppercase text-slate-200'>
-			{userInfo ? (
+			{userInfo.email ? (
 				<div className='max-h-pokemonGridHeight overflow-y-scroll pb-4 md:max-h-[80vh] md:pb-[min(15vh,4rem)] lg:max-h-[85vh]'>
 					<div className='mx-auto mt-8 grid max-w-[95%] grid-cols-pokemonGrid place-items-center gap-y-4 lg:gap-x-16 lg:gap-y-12'>
 						{userPokemon.map(data => (
