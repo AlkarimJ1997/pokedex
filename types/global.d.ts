@@ -17,7 +17,7 @@ declare global {
 	}
 
 	interface UserPokemon extends Pokemon {
-		firebaseId?: number;
+		firebaseId?: string;
 	}
 
 	interface UserInfo {

@@ -49,7 +49,7 @@ export const getUserPokemon = async (userInfo: UserInfo) => {
 			fetchedPokemon.docs.map(async doc => {
 				const pokemon = (await doc.data().pokemon) as Pokemon;
 
-				return { ...pokemon, firebaseId: pokemon.id };
+				return { ...pokemon, firebaseId: `${pokemon.id}` };
 			})
 		)) as UserPokemon[];
 	} catch (error) {
@@ -71,8 +71,12 @@ export const saveUserPokemon = async (pokemon: Pokemon, userInfo: UserInfo) => {
 
 export const removeUserPokemonFromFirebase = async (id: number) => {
 	try {
-    console.log(id);
-		await deleteDoc(doc(pokemonCollection, `${id}`));
+		// Get document ID from firebase
+		const q = query(pokemonCollection, where('pokemon.id', '==', id));
+		const fetchedPokemon = await getDocs(q);
+		const docId = fetchedPokemon.docs[0].id;
+
+		await deleteDoc(doc(pokemonCollection, docId));
 
 		return { ok: true };
 	} catch (error) {
