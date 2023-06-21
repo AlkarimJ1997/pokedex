@@ -1,11 +1,10 @@
 'use client';
 
 import { useEffect } from 'react';
+import { getUserPokemon } from '@/lib/firebase/actions';
 import useStore from '@/hooks/useStore';
 import Login from '@/components/Login';
 import PokemonCard from '@/components/PokemonCard';
-import { getDocs, query, where } from 'firebase/firestore';
-import { pokemonCollection } from '@/lib/firebase/config';
 
 const List = () => {
 	const userInfo = useStore(state => state.userInfo);
@@ -17,26 +16,9 @@ const List = () => {
 		if (!userInfo.email || !setUserPokemon) return;
 
 		const fetchUserPokemon = async () => {
-			try {
-				const q = query(
-					pokemonCollection,
-					where('email', '==', userInfo.email)
-				);
-				const fetchedPokemon = await getDocs(q);
+			const pokemonEntries = await getUserPokemon(userInfo);
 
-				const pokemonData: UserPokemon[] = [];
-
-				await fetchedPokemon.forEach(async doc => {
-					const pokemon = (await doc.data().pokemon) as Pokemon;
-
-					pokemonData.push({ ...pokemon, firebaseId: pokemon.id });
-				});
-
-				setUserPokemon(pokemonData);
-			} catch (error) {
-				console.log(error);
-				return [];
-			}
+			setUserPokemon(pokemonEntries);
 		};
 
 		fetchUserPokemon();

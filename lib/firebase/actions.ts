@@ -6,7 +6,7 @@ import {
 	pokemonCollection,
 } from '@/lib/firebase/config';
 
-export const fetchUser = async () => {
+export const getUser = async () => {
 	try {
 		const provider = new GoogleAuthProvider();
 		const { user } = await signInWithPopup(auth, provider);
@@ -16,7 +16,7 @@ export const fetchUser = async () => {
 		const q = query(usersCollection, where('uid', '==', user.uid));
 		const fetchedUser = await getDocs(q);
 
-		if (fetchedUser.docs.length === 0) {
+		if (fetchedUser.empty) {
 			// Create new user
 			await addDoc(usersCollection, {
 				uid: user.uid,
@@ -38,18 +38,13 @@ export const getUserPokemon = async (userInfo: UserInfo) => {
 		const q = query(pokemonCollection, where('email', '==', userInfo.email));
 		const fetchedPokemon = await getDocs(q);
 
-		const userPokemon: UserPokemon[] = [];
+		return (await Promise.all(
+			fetchedPokemon.docs.map(async doc => {
+				const pokemon = (await doc.data().pokemon) as Pokemon;
 
-		fetchedPokemon.forEach(async doc => {
-			const pokemon = (await doc.data().pokemon) as Pokemon;
-			const types = pokemon.types.map(name => ({
-				[name]: pokemon[name],
-			}));
-
-			userPokemon.push({ ...pokemon, firebaseId: pokemon.id, types });
-		});
-
-		return userPokemon;
+				return { ...pokemon, firebaseId: pokemon.id };
+			})
+		)) as UserPokemon[];
 	} catch (error) {
 		console.log(error);
 		return [];
