@@ -20,7 +20,7 @@ const CustomToast = ({ toast, message }: CustomToastProps) => {
 				alt='Pokeball Icon'
 				width={32}
 				height={32}
-				className='animate-bounce-fast'
+				className='animate-spin-slow'
 			/>
 			<h3 className='font-medium'>{message}</h3>
 		</div>

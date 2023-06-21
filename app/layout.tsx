@@ -25,7 +25,13 @@ export default function RootLayout({
 				<Navbar />
 				<Wrapper>{children}</Wrapper>
 				<Footer />
-				<Toaster />
+				<Toaster
+					position='bottom-right'
+					reverseOrder={false}
+					containerStyle={{
+						bottom: 75,
+					}}
+				/>
 			</body>
 		</html>
 	);

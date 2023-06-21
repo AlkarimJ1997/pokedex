@@ -35,6 +35,7 @@ module.exports = {
 				},
 			},
 			animation: {
+				'spin-slow': 'spin 3s linear infinite',
 				'bounce-fast': 'bounce 0.75s infinite',
 				enter: 'enter 200ms ease-out',
 				leave: 'leave 150ms ease-in forwards',
