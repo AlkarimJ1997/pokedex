@@ -13,7 +13,7 @@ export interface PokemonState {
 	removeFromCompare: (pokemonId: number) => void;
 	setUserPokemon: (pokemon: Pokemon[]) => void;
 	addToList: (pokemon: UserPokemon) => void;
-	removeFromList: (pokemonId: number) => void;
+	removeFromList: (pokemonId: number, callback: (ok: boolean) => void) => void;
 }
 
 export const createPokemonSlice: StateCreator<PokemonState> = set => ({
@@ -49,13 +49,16 @@ export const createPokemonSlice: StateCreator<PokemonState> = set => ({
 	setUserPokemon: pokemon => set({ userPokemon: pokemon }),
 	addToList: pokemon =>
 		set(state => ({ userPokemon: [...state.userPokemon, pokemon] })),
-	removeFromList: async pokemonId => {
+	removeFromList: async (pokemonId, callback) => {
 		const response = await removeUserPokemonFromFirebase(pokemonId);
 
 		if (response.ok) {
 			set(state => ({
 				userPokemon: state.userPokemon.filter(p => p.id !== pokemonId),
 			}));
+			callback(true);
 		}
+
+		callback(false);
 	},
 });

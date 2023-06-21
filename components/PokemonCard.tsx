@@ -76,11 +76,13 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 	};
 
 	const handleListDelete = () => {
-		removeFromList(id);
-
-		addToast({
-			type: 'custom',
-			message: `${capitalize(name)} removed from your list!`,
+		removeFromList(id, resolve => {
+			if (resolve) {
+				addToast({
+					type: 'custom',
+					message: `${capitalize(name)} removed from your list!`,
+				});
+			}
 		});
 	};
 
