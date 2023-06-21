@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { capitalize } from '@/utils/helpers';
 import useStore from '@/hooks/useStore';
 import EmptyState from '@/components/compare/EmptyState';
 import CompareHeader from '@/components/compare/CompareHeader';
@@ -13,8 +14,41 @@ interface ComparePokemonProps {
 }
 
 const ComparePokemon = ({ pokemon, isEmpty }: ComparePokemonProps) => {
+	const userInfo = useStore(state => state.userInfo);
+	const userPokemon = useStore(state => state.userPokemon);
+
+	const addToast = useStore(state => state.addToast);
+	const addToList = useStore(state => state.addToList);
 	const removeFromCompare = useStore(state => state.removeFromCompare);
+
 	const router = useRouter();
+
+	const handleListAdd = () => {
+		if (!userInfo.email) {
+			addToast({
+				type: 'error',
+				message: 'You must be logged in to save Pokemon!',
+			});
+			return;
+		}
+
+		if (userPokemon.find(p => p.id === pokemon.id)) {
+			addToast({
+				type: 'custom',
+				message: `${capitalize(pokemon.name)} is already saved!`,
+			});
+			return;
+		}
+
+		addToList(pokemon, userInfo, resolve => {
+			if (resolve) {
+				addToast({
+					type: 'custom',
+					message: `${capitalize(pokemon.name)} added to your list!`,
+				});
+			}
+		});
+	};
 
 	return (
 		<div className='w-full lg:h-full'>
@@ -26,7 +60,9 @@ const ComparePokemon = ({ pokemon, isEmpty }: ComparePokemonProps) => {
 						<TypeChart types={pokemon.types} />
 					</div>
 					<div className='grid w-full grid-cols-3 gap-4 lg:mx-auto lg:max-w-5xl'>
-						<CompareButton className='hover:border-blue-700 hover:bg-blue-700'>
+						<CompareButton
+							onClick={handleListAdd}
+							className='hover:border-blue-700 hover:bg-blue-700'>
 							Add
 						</CompareButton>
 						<CompareButton
