@@ -15,11 +15,10 @@ type PokemonGridProps = {
 
 const PokemonGrid = ({ pokemon }: PokemonGridProps) => {
 	const toasts = useStore(state => state.toasts);
-	const clearToasts = useStore(state => state.clearToasts);
-
 	const filteredPokemon = useStore(state => state.filteredPokemon);
+	
+  const clearToasts = useStore(state => state.clearToasts);
 	const setPokemon = useStore(state => state.setPokemon);
-
 	const setUser = useStore(state => state.setUser);
 
 	// Firebase auth

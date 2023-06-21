@@ -23,6 +23,7 @@ interface PokemonCardProps {
 const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 	const userInfo = useStore(state => state.userInfo);
 	const userPokemon = useStore(state => state.userPokemon);
+
 	const addToCompare = useStore(state => state.addToCompare);
 	const addToast = useStore(state => state.addToast);
 
