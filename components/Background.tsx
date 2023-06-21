@@ -8,7 +8,13 @@ const Background = () => {
 	return (
 		<div className='absolute inset-0 -z-10 grid auto-rows-fr grid-cols-3 gap-8 bg-primary-500 blur-sm after:absolute after:inset-0 after:bg-primary-500 after:backdrop-blur-2xl'>
 			{[...images, ...images, ...images].map((image, i) => (
-				<Image key={i} src={image} alt='Pokeball' />
+				<Image
+					key={i}
+					src={image}
+					alt='Pokeball'
+					loading='lazy'
+					placeholder='blur'
+				/>
 			))}
 		</div>
 	);
