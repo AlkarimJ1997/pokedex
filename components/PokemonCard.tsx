@@ -76,7 +76,6 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 	};
 
 	const handleListDelete = async () => {
-    console.log('in delete');
 		const response = await removeUserPokemonFromFirebase(id);
 
 		if (response.ok) {
