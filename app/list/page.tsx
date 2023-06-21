@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+import { getUserPokemon } from '@/lib/firebase/actions';
 import useStore from '@/hooks/useStore';
 import Login from '@/components/Login';
 import PokemonCard from '@/components/PokemonCard';
@@ -7,6 +9,20 @@ import PokemonCard from '@/components/PokemonCard';
 const List = () => {
 	const userInfo = useStore(state => state.userInfo);
 	const userPokemon = useStore(state => state.userPokemon);
+
+	const setUserPokemon = useStore(state => state.setUserPokemon);
+
+	useEffect(() => {
+		if (!userInfo.email || userPokemon.length > 0 || !setUserPokemon) return;
+
+		const fetchUserPokemon = async () => {
+			const pokemonEntries = await getUserPokemon(userInfo);
+
+			setUserPokemon(pokemonEntries);
+		};
+
+		fetchUserPokemon();
+	}, [userInfo, userPokemon, setUserPokemon]);
 
 	return (
 		<section className='h-full w-full max-w-full uppercase text-slate-200'>

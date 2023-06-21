@@ -16,6 +16,7 @@ export interface PokemonState {
 	setFilter: (filter: string) => void;
 	addToCompare: (pokemon: Pokemon) => void;
 	removeFromCompare: (pokemonId: number) => void;
+	setUserPokemon: (pokemon: Pokemon[]) => void;
 	addToList: (pokemon: Pokemon, userInfo: UserInfo, callback: Resolver) => void;
 	removeFromList: (pokemonId: number, callback: Resolver) => void;
 }
@@ -50,6 +51,7 @@ export const createPokemonSlice: StateCreator<PokemonState> = set => ({
 		set(state => ({
 			compareQueue: state.compareQueue.filter(p => p.id !== pokemonId),
 		})),
+	setUserPokemon: pokemon => set({ userPokemon: pokemon }),
 	addToList: async (pokemon, userInfo, callback) => {
 		const response = await saveUserPokemon(pokemon, userInfo);
 
