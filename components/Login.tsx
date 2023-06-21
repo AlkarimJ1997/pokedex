@@ -1,17 +1,11 @@
-import { fetchUser } from '@/lib/firebase/actions';
+// import { fetchUser } from '@/lib/firebase/actions';
 import { FcGoogle } from 'react-icons/fc';
 import useStore from '@/hooks/useStore';
 
 const Login = () => {
 	const setUser = useStore(state => state.setUser);
 
-	const handleLogin = async () => {
-		const user = await fetchUser();
-
-		if (!user || !user.email) return;
-
-		setUser({ email: user.email });
-	};
+	const handleLogin = async () => {};
 
 	return (
 		<div className='flex h-full w-full items-center justify-center'>
