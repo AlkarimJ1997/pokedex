@@ -2,50 +2,18 @@
 
 import { useEffect } from 'react';
 import { getRandomFromArray } from '@/utils/helpers';
-import toast from 'react-hot-toast';
 import useStore from '@/hooks/useStore';
-import CustomToast from '@/components/CustomToast';
 import PokemonCard from '@/components/PokemonCard';
-// import { onAuthStateChanged } from 'firebase/auth';
-// import { auth } from '@/lib/firebase/config';
 
 type PokemonGridProps = {
 	pokemon: UserPokemon[];
 };
 
 const PokemonGrid = ({ pokemon }: PokemonGridProps) => {
-	const toasts = useStore(state => state.toasts);
 	const allPokemon = useStore(state => state.pokemon);
 	const filteredPokemon = useStore(state => state.filteredPokemon);
 
-	const clearToasts = useStore(state => state.clearToasts);
 	const setPokemon = useStore(state => state.setPokemon);
-
-	// Toast notifications
-	useEffect(() => {
-		if (!clearToasts || !toasts || toasts.length === 0) return;
-
-		toasts.forEach(({ type, message }) => {
-			switch (type) {
-				case 'success':
-					toast.success(message);
-					break;
-				case 'loading':
-					toast.loading(message);
-					break;
-				case 'error':
-					toast.error(message);
-					break;
-				case 'blank':
-					toast(message);
-					break;
-				default:
-					toast.custom(t => <CustomToast toast={t} message={message} />);
-			}
-		});
-
-		clearToasts();
-	}, [toasts, clearToasts]);
 
 	// Setting global pokemon state
 	useEffect(() => {
