@@ -71,12 +71,12 @@ export const saveUserPokemon = async (pokemon: Pokemon, userInfo: UserInfo) => {
 
 export const removeUserPokemonFromFirebase = async (id: number) => {
 	try {
-		// Get document ID from firebase
 		const q = query(pokemonCollection, where('pokemon.id', '==', id));
-		const fetchedPokemon = await getDocs(q);
-		const docId = fetchedPokemon.docs[0].id;
+		const snapshot = await getDocs(q);
 
-		await deleteDoc(doc(pokemonCollection, docId));
+		snapshot.forEach(async doc => {
+			await deleteDoc(doc.ref);
+		});
 
 		return { ok: true };
 	} catch (error) {

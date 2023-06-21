@@ -15,9 +15,6 @@ const List = () => {
 	useEffect(() => {
 		if (!userInfo.email || !setUserPokemon) return;
 
-		// If the global state is already populated, don't fetch again
-		if (userPokemon.length > 0) return;
-
 		const fetchUserPokemon = async () => {
 			const pokemonEntries = await getUserPokemon(userInfo);
 
