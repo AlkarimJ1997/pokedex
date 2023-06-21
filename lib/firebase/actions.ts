@@ -50,3 +50,14 @@ export const getUserPokemon = async (userInfo: UserInfo) => {
 		return [];
 	}
 };
+
+export const saveUserPokemon = async (pokemon: Pokemon, userInfo: UserInfo) => {
+	try {
+		await addDoc(pokemonCollection, { pokemon, email: userInfo.email });
+
+		return { ok: true };
+	} catch (error) {
+		console.log(error);
+		return { ok: false };
+	}
+};

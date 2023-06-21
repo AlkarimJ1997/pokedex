@@ -6,12 +6,11 @@ import { FaPlus, FaTrash } from 'react-icons/fa';
 import { IoGitCompare } from 'react-icons/io5';
 import { pokemonTypes } from '@/data/pokemonTypes';
 import { capitalize } from '@/utils/helpers';
+import { saveUserPokemon } from '@/lib/firebase/actions';
 import clsx from 'clsx';
 import useStore from '@/hooks/useStore';
 import Image from 'next/image';
 import Icon from '@/components/Icon';
-import { addDoc } from 'firebase/firestore';
-import { pokemonCollection } from '@/lib/firebase/config';
 
 interface PokemonCardProps {
 	id: number;
@@ -59,18 +58,14 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 			return;
 		}
 
-		try {
-			await addDoc(pokemonCollection, {
-				pokemon: { id, name, image, types },
-				email: userInfo.email,
-			});
+		const pokemon = { id, name, image, types };
+		const response = await saveUserPokemon(pokemon, userInfo);
 
+		if (response.ok) {
 			addToast({
 				type: 'custom',
 				message: `${capitalize(name)} added to your list!`,
 			});
-		} catch (error) {
-			console.log(error);
 		}
 	};
 
