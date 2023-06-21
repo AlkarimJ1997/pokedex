@@ -5,12 +5,14 @@ export interface PokemonState {
 	filteredPokemon: Pokemon[];
 	filter: string;
 	compareQueue: Pokemon[];
-	userPokemon: Pokemon[];
+	userPokemon: UserPokemon[];
 	setPokemon: (pokemon: Pokemon[]) => void;
 	setFilter: (filter: string) => void;
 	addToCompare: (pokemon: Pokemon) => void;
 	removeFromCompare: (pokemonId: number) => void;
 	setUserPokemon: (pokemon: Pokemon[]) => void;
+	addToList: (pokemon: UserPokemon) => void;
+	removeFromList: (pokemonId: number) => void;
 }
 
 export const createPokemonSlice: StateCreator<PokemonState> = set => ({
@@ -44,4 +46,10 @@ export const createPokemonSlice: StateCreator<PokemonState> = set => ({
 			compareQueue: state.compareQueue.filter(p => p.id !== pokemonId),
 		})),
 	setUserPokemon: pokemon => set({ userPokemon: pokemon }),
+	addToList: pokemon =>
+		set(state => ({ userPokemon: [...state.userPokemon, pokemon] })),
+	removeFromList: pokemonId =>
+		set(state => ({
+			userPokemon: state.userPokemon.filter(p => p.firebaseId !== pokemonId),
+		})),
 });

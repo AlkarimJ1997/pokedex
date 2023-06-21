@@ -1,5 +1,12 @@
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { addDoc, getDocs, query, where } from 'firebase/firestore';
+import {
+	addDoc,
+	deleteDoc,
+	doc,
+	getDocs,
+	query,
+	where,
+} from 'firebase/firestore';
 import {
 	auth,
 	usersCollection,
@@ -54,6 +61,18 @@ export const getUserPokemon = async (userInfo: UserInfo) => {
 export const saveUserPokemon = async (pokemon: Pokemon, userInfo: UserInfo) => {
 	try {
 		await addDoc(pokemonCollection, { pokemon, email: userInfo.email });
+
+		return { ok: true };
+	} catch (error) {
+		console.log(error);
+		return { ok: false };
+	}
+};
+
+export const removeUserPokemonFromFirebase = async (id: number) => {
+	try {
+    console.log(id);
+		await deleteDoc(doc(pokemonCollection, `${id}`));
 
 		return { ok: true };
 	} catch (error) {

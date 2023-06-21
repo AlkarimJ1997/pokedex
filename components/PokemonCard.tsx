@@ -6,7 +6,10 @@ import { FaPlus, FaTrash } from 'react-icons/fa';
 import { IoGitCompare } from 'react-icons/io5';
 import { pokemonTypes } from '@/data/pokemonTypes';
 import { capitalize } from '@/utils/helpers';
-import { saveUserPokemon } from '@/lib/firebase/actions';
+import {
+	removeUserPokemonFromFirebase,
+	saveUserPokemon,
+} from '@/lib/firebase/actions';
 import clsx from 'clsx';
 import useStore from '@/hooks/useStore';
 import Image from 'next/image';
@@ -25,6 +28,8 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 
 	const addToCompare = useStore(state => state.addToCompare);
 	const addToast = useStore(state => state.addToast);
+	const addToList = useStore(state => state.addToList);
+	const removeFromList = useStore(state => state.removeFromList);
 
 	const pathname = usePathname();
 	const router = useRouter();
@@ -66,6 +71,19 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 				type: 'custom',
 				message: `${capitalize(name)} added to your list!`,
 			});
+			addToList(pokemon);
+		}
+	};
+
+	const handleListDelete = async () => {
+		const response = await removeUserPokemonFromFirebase(id);
+
+		if (response.ok) {
+			addToast({
+				type: 'custom',
+				message: `${capitalize(name)} removed from your list!`,
+			});
+			removeFromList(id);
 		}
 	};
 
@@ -75,7 +93,7 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 				<Icon
 					type={plusRoute ? FaPlus : FaTrash}
 					label={plusRoute ? 'Add Pokemon' : 'Remove Pokemon'}
-					onClick={plusRoute ? handleListAdd : undefined}
+					onClick={plusRoute ? handleListAdd : handleListDelete}
 					size={16}
 					className={clsx(
 						'transition duration-300 ease-in-out hover:scale-[1.75]',
