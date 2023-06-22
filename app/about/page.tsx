@@ -12,7 +12,7 @@ const About = () => {
 				<Lottie
 					animationData={avatarAnimation}
 					alt='Avatar'
-					className='mx-auto w-80 md:w-96 lg:w-[600px]'
+					className='mx-auto mb-6 w-60 rounded-2xl ring-2 ring-accent xs:w-80 md:mb-12 md:w-96 lg:w-[600px]'
 				/>
 				<hgroup className='space-y-2 text-center text-lg text-slate-200 md:text-xl lg:space-y-4 lg:text-2xl'>
 					<h1>Hi, I am Alkarim Jiwa</h1>
