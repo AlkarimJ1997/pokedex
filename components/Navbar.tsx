@@ -50,7 +50,7 @@ const Navbar = () => {
 						<div
 							ref={slidingRef}
 							style={{ width: `${sliderWidth}%` }}
-							className='absolute bottom-0.5 left-0 h-1 rounded-full bg-slate-200 transition-all duration-500 ease-in-out'
+							className='absolute bottom-0.5 left-0 h-1 rounded-full bg-accent transition-all duration-500 ease-in-out'
 						/>
 					</ul>
 				</div>

@@ -1,64 +1,42 @@
 'use client';
 
-import { useEffect } from 'react';
 import { FaGithub, FaLinkedin, FaYoutube } from 'react-icons/fa';
 import Lottie from 'lottie-react';
 import avatarAnimation from '@/assets/animations/avatar.json';
 import Link from 'next/link';
-import {
-	getPokemonEvolutionURL,
-	getPokemonEvolutions,
-	getPokemonInfo,
-	getPokemonLocations,
-} from '@/utils/api/pokemon';
-import { getAccentColor } from '@/utils/helpers';
 
 const About = () => {
-	useEffect(() => {
-		const testLoad = async () => {
-			const info = await getPokemonInfo(1);
-			const locations = await getPokemonLocations(1);
-			const evolutionURL = await getPokemonEvolutionURL(1);
-			const evolutionChain = await getPokemonEvolutions(evolutionURL);
-
-			console.log({
-				...info,
-				encounters: locations,
-				evolution: evolutionChain,
-				evolutionLevel: evolutionChain.find(
-					({ pokemon }) => pokemon.name === info?.name
-				)?.level,
-			});
-
-			console.log(await getAccentColor(info?.image!));
-		};
-
-		testLoad();
-	}, []);
-
 	return (
-		<div className='about'>
-			<Lottie animationData={avatarAnimation} alt='Avatar' className='h-60' />
-			<h1 className='profile-text'>Hi, I am Alkarim Jiwa</h1>
-			<h2 className='profile-text'>The creator of this awesome pokedex</h2>
-			<h4 className='profile-text'>
-				This project is inspired by a Youtube tutorial rebuilt with Next.js
-			</h4>
-			<div className='profile-links'>
-				<Link href='https://github.com/AlkarimJ1997' title='Github'>
-					<FaGithub />
-					<span className='sr-only'>Github</span>
-				</Link>
-				<Link href='#' title='Youtube'>
-					<FaYoutube />
-					<span className='sr-only'>Youtube</span>
-				</Link>
-				<Link href='#' title='Linkedin'>
-					<FaLinkedin />
-					<span className='sr-only'>Linkedin</span>
-				</Link>
+		<section className='mx-auto grid h-full max-w-[90%] place-items-center'>
+			<div>
+				<Lottie
+					animationData={avatarAnimation}
+					alt='Avatar'
+					className='mx-auto w-80 md:w-96 lg:w-[600px]'
+				/>
+				<hgroup className='space-y-2 text-center text-lg text-slate-200 md:text-xl lg:space-y-4 lg:text-2xl'>
+					<h1>Hi, I am Alkarim Jiwa</h1>
+					<h2>The creator of this awesome pokedex</h2>
+					<h4>
+						This project is inspired by a Youtube tutorial rebuilt with Next.js
+					</h4>
+				</hgroup>
+				<div className='mt-6 flex w-full justify-center gap-12 md:mt-8'>
+					<Link href='https://github.com/AlkarimJ1997' title='Github'>
+						<FaGithub size={40} className='text-accent' />
+						<span className='sr-only'>Github</span>
+					</Link>
+					<Link href='#' title='Youtube'>
+						<FaYoutube size={40} className='text-accent' />
+						<span className='sr-only'>Youtube</span>
+					</Link>
+					<Link href='#' title='Linkedin'>
+						<FaLinkedin size={40} className='text-accent' />
+						<span className='sr-only'>Linkedin</span>
+					</Link>
+				</div>
 			</div>
-		</div>
+		</section>
 	);
 };
 
