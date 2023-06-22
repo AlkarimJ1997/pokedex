@@ -13,7 +13,7 @@ const List = () => {
 	const setUserPokemon = useStore(state => state.setUserPokemon);
 
 	useEffect(() => {
-		if (!userInfo.email || userPokemon.length > 0 || !setUserPokemon) return;
+		if (!userInfo.email || !setUserPokemon) return;
 
 		const fetchUserPokemon = async () => {
 			const pokemonEntries = await getUserPokemon(userInfo);
@@ -22,7 +22,7 @@ const List = () => {
 		};
 
 		fetchUserPokemon();
-	}, [userInfo, userPokemon, setUserPokemon]);
+	}, [userInfo, setUserPokemon]);
 
 	return (
 		<section className='h-full w-full max-w-full uppercase text-slate-200'>

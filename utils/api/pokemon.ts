@@ -1,4 +1,4 @@
-import { POKEMON_URL, defaultImages, images } from '@/constants';
+import { POKEMON_URL } from '@/constants';
 import { pokemonTypes } from '@/data/pokemonTypes';
 
 type PokemonTypeJson = {
@@ -21,34 +21,14 @@ export const getInitialPokemon = async (): Promise<PokemonJson[]> => {
 	}
 };
 
-// export const getPokemonData = async (pokemons: Pokemon[]) => {
-// 	try {
-// 		const data: PokemonData[] = [];
-
-// 		for await (const pokemon of pokemons) {
-// 			const response = await fetch(pokemon.url);
-// 			const { name, id, image } = await response.json();
-
-// 			data.push({ name, id, image });
-// 		}
-
-// 		return data;
-// 	} catch (err) {
-// 		console.log(err);
-//     return [];
-// 	}
-// };
-
 export const getPokemonData = async (pokemons: PokemonJson[]) => {
 	try {
 		const data: Pokemon[] = await Promise.all(
 			pokemons.map(async pokemon => {
 				const response = await fetch(pokemon.url);
 				const { name, id, types: typesJson, sprites } = await response.json();
-				const image = images[id] ?? defaultImages[id] ?? null;
 				const types = typesJson.map((json: PokemonTypeJson) => json.type.name);
 
-				// return { name, id, image, types };
 				return { name, id, image: sprites.other.home.front_default, types };
 			})
 		);
