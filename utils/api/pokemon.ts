@@ -1,10 +1,31 @@
-import { POKEMON_URL } from '@/constants';
+import {
+	POKEMON_EVOLUTION_URL,
+	POKEMON_SINGLE_URL,
+	POKEMON_URL,
+} from '@/constants';
 import { pokemonTypes } from '@/data/pokemonTypes';
 
 type PokemonTypeJson = {
 	slot: number;
 	type: {
 		name: keyof typeof pokemonTypes;
+		url: string;
+	};
+};
+
+type EncounterJson = {
+	location_area: {
+		name: string;
+		url: string;
+	};
+};
+
+type EvolutionChainJson = {
+	evolution_details: string[];
+	evolves_to: EvolutionChainJson[];
+	is_baby: boolean;
+	species: {
+		name: string;
 		url: string;
 	};
 };
@@ -34,6 +55,66 @@ export const getPokemonData = async (pokemons: PokemonJson[]) => {
 		);
 
 		return data;
+	} catch (err) {
+		console.log(err);
+		return [];
+	}
+};
+
+export const getPokemonLocations = async (id: number) => {
+	try {
+		const response = await fetch(`${POKEMON_SINGLE_URL}/${id}/encounters`);
+		const encounters = (await response.json()) as EncounterJson[];
+
+		return encounters.map(({ location_area: location }) => {
+			return location.name.toUpperCase().split('-').join(' ');
+		});
+	} catch (err) {
+		console.log(err);
+		return [];
+	}
+};
+
+const getRecursiveEvolutionData = (
+	chain: EvolutionChainJson,
+	level: number,
+	response: any
+) => {
+	if (!chain.evolves_to.length) {
+		return response.push({
+			pokemon: {
+				...chain.species,
+				url: chain.species.url.replace('pokemon-species', 'pokemon'),
+			},
+			level,
+		});
+	}
+
+	response.push({
+		pokemon: {
+			...chain.species,
+			url: chain.species.url.replace('pokemon-species', 'pokemon'),
+		},
+		level,
+	});
+
+	return getRecursiveEvolutionData(chain.evolves_to[0], level + 1, response);
+};
+
+export const getPokemonEvolutions = async (id: number) => {
+	try {
+		const response = await fetch(`${POKEMON_EVOLUTION_URL}/${id}`);
+		const { chain } = await response.json();
+
+		const getEvolutionData = (chain: EvolutionChainJson) => {
+			const response: any = [];
+
+			getRecursiveEvolutionData(chain, 1, response);
+
+			return response;
+		};
+
+		return getEvolutionData(chain);
 	} catch (err) {
 		console.log(err);
 		return [];
