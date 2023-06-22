@@ -1,7 +1,10 @@
-'use client';
-
-import extractColors from 'extract-colors';
-import { useCallback, useEffect, useState } from 'react';
+import {
+	getPokemonInfo,
+	getPokemonLocations,
+	getPokemonEvolutionURL,
+	getPokemonEvolutions,
+} from '@/utils/api/pokemon';
+import { getAccentColor } from '@/utils/helpers';
 
 interface IParams {
 	id: string;
@@ -11,103 +14,26 @@ interface PokemonProps {
 	params: IParams;
 }
 
-const Pokemon = ({ params }: PokemonProps) => {
-  const [isDataLoading, setIsDataLoading] = useState(true);
-  
-	// const dispatch = useAppDispatch();
-	// const currentPokemonTab = useAppSelector(
-	// 	({ app: { currentPokemonTab } }) => currentPokemonTab
-	// );
-	// const currentPokemon = useAppSelector(
-	// 	({ pokemon: { currentPokemon } }) => currentPokemon
-	// );
+const Pokemon = async ({ params }: PokemonProps) => {
+	const info = await getPokemonInfo(1);
+	const locations = await getPokemonLocations(1);
+	const evolutionURL = await getPokemonEvolutionURL(1);
+	const evolutionChain = await getPokemonEvolutions(evolutionURL);
+	// const accentColor = await getAccentColor(info?.image!);
 
-	// useEffect(() => {
-	// 	dispatch(setPokemonTab(pokemonTabs.description));
-	// }, [dispatch]);
+	// document.body.style.setProperty('--accent-color', accentColor);
 
-	const getPokemonInfo = useCallback(
-		async image => {
-			const { data } = await axios.get(`${pokemonRoute}/${params.id}`);
-			const { data: dataEncounters } = await axios.get(
-				data.location_area_encounters
-			);
+	const currentPokemon = {
+		id: params.id,
+		...info,
+		encounters: locations,
+		evolution: evolutionChain,
+		evolutionLevel: evolutionChain.find(({ pokemon }) => {
+			return pokemon.name === info?.name;
+		})?.level,
+	};
 
-			const {
-				data: {
-					evolution_chain: { url: evolutionURL },
-				},
-			} = await axios.get(`${pokemonSpeciesRoute}/${data.id}`);
-			const { data: evolutionData } = await axios.get(evolutionURL);
-
-			const pokemonAbilities = {
-				abilities: data.abilities.map(({ ability }) => ability.name),
-				moves: data.moves.map(({ move }) => move.name),
-			};
-
-			const encounters = [];
-			const evolution = getEvolutionData(evolutionData.chain);
-			let evolutionLevel;
-			evolutionLevel = evolution.find(
-				({ pokemon }) => pokemon.name === data.name
-			).level;
-			dataEncounters.forEach(encounter => {
-				encounters.push(
-					encounter.location_area.name.toUpperCase().split('-').join(' ')
-				);
-			});
-			const stats = await data.stats.map(({ stat, base_stat }) => ({
-				name: stat.name,
-				value: base_stat,
-			}));
-			dispatch(
-				setCurrentPokemon({
-					id: data.id,
-					name: data.name,
-					types: data.types.map(({ type: { name } }) => name),
-					image,
-					stats,
-					encounters,
-					evolutionLevel,
-					evolution,
-					pokemonAbilities,
-				})
-			);
-			setIsDataLoading(false);
-		},
-		[params.id, dispatch, getEvolutionData]
-	);
-
-	useEffect(() => {
-		const imageElemet = document.createElement('img');
-		imageElemet.src = images[params.id];
-
-		const options = {
-			pixels: 10000,
-			distance: 1,
-			splitPower: 10,
-			colorValidator: (red, green, blue, alpha = 255) => alpha > 250,
-			saturationDistance: 0.2,
-			lightnessDistance: 0.2,
-			hueDistance: 0.083333333,
-		};
-
-		const getColor = async () => {
-			const color = await extractColors(imageElemet.src, options);
-			const root = document.documentElement;
-
-			root.style.setProperty('--accent-color', color[0].hex.split('"')[0]);
-		};
-
-		getColor();
-
-		let image = images[params.id];
-		if (!image) {
-			image = defaultImages[params.id];
-		}
-
-		getPokemonInfo(image);
-	}, [params.id, getPokemonInfo]);
+  console.log(currentPokemon);
 
 	return <div>Pokemon</div>;
 };

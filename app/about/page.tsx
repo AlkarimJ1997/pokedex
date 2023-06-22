@@ -11,7 +11,6 @@ import {
 	getPokemonInfo,
 	getPokemonLocations,
 } from '@/utils/api/pokemon';
-import extractColors, { BrowserOptions } from 'extract-colors';
 import { getAccentColor } from '@/utils/helpers';
 
 const About = () => {
