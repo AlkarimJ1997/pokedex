@@ -78,10 +78,10 @@ export const getPokemonLocations = async (id: number) => {
 const getRecursiveEvolutionData = (
 	chain: EvolutionChainJson,
 	level: number,
-	response: any
+	evolutionData: PokemonEvolution[]
 ) => {
 	if (!chain.evolves_to.length) {
-		return response.push({
+		return evolutionData.push({
 			pokemon: {
 				...chain.species,
 				url: chain.species.url.replace('pokemon-species', 'pokemon'),
@@ -90,7 +90,7 @@ const getRecursiveEvolutionData = (
 		});
 	}
 
-	response.push({
+	evolutionData.push({
 		pokemon: {
 			...chain.species,
 			url: chain.species.url.replace('pokemon-species', 'pokemon'),
@@ -98,7 +98,11 @@ const getRecursiveEvolutionData = (
 		level,
 	});
 
-	return getRecursiveEvolutionData(chain.evolves_to[0], level + 1, response);
+	return getRecursiveEvolutionData(
+		chain.evolves_to[0],
+		level + 1,
+		evolutionData
+	);
 };
 
 export const getPokemonEvolutions = async (id: number) => {
@@ -106,15 +110,11 @@ export const getPokemonEvolutions = async (id: number) => {
 		const response = await fetch(`${POKEMON_EVOLUTION_URL}/${id}`);
 		const { chain } = await response.json();
 
-		const getEvolutionData = (chain: EvolutionChainJson) => {
-			const response: any = [];
+		const evolutions: PokemonEvolution[] = [];
 
-			getRecursiveEvolutionData(chain, 1, response);
+		getRecursiveEvolutionData(chain, 1, evolutions);
 
-			return response;
-		};
-
-		return getEvolutionData(chain);
+		return evolutions;
 	} catch (err) {
 		console.log(err);
 		return [];

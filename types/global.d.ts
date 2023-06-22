@@ -19,6 +19,15 @@ declare global {
 	interface UserInfo {
 		email: string;
 	}
+
+	// Evolutions
+	interface PokemonEvolution {
+		level: number;
+		pokemon: {
+			name: string;
+			url: string;
+		};
+	}
 }
 
 export {};
