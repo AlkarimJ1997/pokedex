@@ -8,9 +8,9 @@ const EmptyState = () => {
 				type={FaPlus}
 				size={80}
 				label='Add Pokemon to Compare'
-				className='bg-accent rounded-[50%] p-8 text-slate-200'
+				className='rounded-[50%] bg-accent p-8 text-slate-200'
 			/>
-			<h3 className='text-body uppercase tracking-widest text-slate-200 md:tracking-[0.3em]'>
+			<h3 className='mt-6 text-body uppercase tracking-widest text-slate-200 md:tracking-[0.3em] lg:mt-10'>
 				Add Pokemon To Compare
 			</h3>
 		</div>
