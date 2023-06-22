@@ -11,6 +11,7 @@ module.exports = {
 				xs: '475px',
 			},
 			colors: {
+				accent: 'var(--accent-color)',
 				primary: {
 					500: 'rgba(4, 6, 20, 0.85)',
 				},

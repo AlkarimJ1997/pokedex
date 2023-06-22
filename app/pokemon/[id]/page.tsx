@@ -1,10 +1,10 @@
 import {
-	getPokemonInfo,
+  getPokemonInfo,
 	getPokemonLocations,
 	getPokemonEvolutionURL,
 	getPokemonEvolutions,
 } from '@/utils/api/pokemon';
-import { getAccentColor } from '@/utils/helpers';
+import ColorSetter from '@/components/ColorSetter';
 
 interface IParams {
 	id: string;
@@ -15,16 +15,18 @@ interface PokemonProps {
 }
 
 const Pokemon = async ({ params }: PokemonProps) => {
-	const info = await getPokemonInfo(1);
-	const locations = await getPokemonLocations(1);
-	const evolutionURL = await getPokemonEvolutionURL(1);
-	const evolutionChain = await getPokemonEvolutions(evolutionURL);
-	// const accentColor = await getAccentColor(info?.image!);
+	const pokemonId = Number(params.id);
 
-	// document.body.style.setProperty('--accent-color', accentColor);
+	const [info, locations, evolutionURL] = await Promise.all([
+		getPokemonInfo(pokemonId),
+		getPokemonLocations(pokemonId),
+		getPokemonEvolutionURL(pokemonId),
+	]);
+
+	const evolutionChain = await getPokemonEvolutions(evolutionURL);
 
 	const currentPokemon = {
-		id: params.id,
+		id: pokemonId,
 		...info,
 		encounters: locations,
 		evolution: evolutionChain,
@@ -33,9 +35,12 @@ const Pokemon = async ({ params }: PokemonProps) => {
 		})?.level,
 	};
 
-  console.log(currentPokemon);
-
-	return <div>Pokemon</div>;
+	return (
+		<div>
+			<h1 className='text-2xl text-slate-200'>{currentPokemon.name}</h1>
+			<ColorSetter src={info?.image!} />
+		</div>
+	);
 };
 
 export default Pokemon;
