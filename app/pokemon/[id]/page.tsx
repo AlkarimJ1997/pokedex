@@ -26,45 +26,6 @@ const Pokemon = ({ params }: PokemonProps) => {
 	// 	dispatch(setPokemonTab(pokemonTabs.description));
 	// }, [dispatch]);
 
-	// const getRecursiveEvolution = useCallback(
-	// 	(evolutionChain, level, evolutionData) => {
-	// 		if (!evolutionChain.evolves_to.length) {
-	// 			return evolutionData.push({
-	// 				pokemon: {
-	// 					...evolutionChain.species,
-	// 					url: evolutionChain.species.url.replace(
-	// 						'pokemon-species',
-	// 						'pokemon'
-	// 					),
-	// 				},
-	// 				level,
-	// 			});
-	// 		}
-	// 		evolutionData.push({
-	// 			pokemon: {
-	// 				...evolutionChain.species,
-	// 				url: evolutionChain.species.url.replace('pokemon-species', 'pokemon'),
-	// 			},
-	// 			level,
-	// 		});
-	// 		return getRecursiveEvolution(
-	// 			evolutionChain.evolves_to[0],
-	// 			level + 1,
-	// 			evolutionData
-	// 		);
-	// 	},
-	// 	[]
-	// );
-
-	// const getEvolutionData = useCallback(
-	// 	evolutionChain => {
-	// 		const evolutionData = [];
-	// 		getRecursiveEvolution(evolutionChain, 1, evolutionData);
-	// 		return evolutionData;
-	// 	},
-	// 	[getRecursiveEvolution]
-	// );
-
 	const getPokemonInfo = useCallback(
 		async image => {
 			const { data } = await axios.get(`${pokemonRoute}/${params.id}`);

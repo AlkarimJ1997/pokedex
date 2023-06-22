@@ -13,6 +13,12 @@ type PokemonTypeJson = {
 	};
 };
 
+type PokemonInfoJson = {
+	abilities: PokemonAbility[];
+	moves: PokemonMove[];
+	stats: PokemonStat[];
+};
+
 type EncounterJson = {
 	location_area: {
 		name: string;
@@ -75,44 +81,54 @@ export const getPokemonLocations = async (id: number) => {
 	}
 };
 
-const getRecursiveEvolutionData = (
-	chain: EvolutionChainJson,
-	level: number,
-	evolutionData: PokemonEvolution[]
-) => {
-	if (!chain.evolves_to.length) {
-		return evolutionData.push({
-			pokemon: {
-				...chain.species,
-				url: chain.species.url.replace('pokemon-species', 'pokemon'),
-			},
-			level,
-		});
+export const getPokemonAbilitiesAndMoves = async (id: number) => {
+	try {
+		const response = await fetch(`${POKEMON_SINGLE_URL}/${id}`);
+		const { abilities, moves, stats } =
+			(await response.json()) as PokemonInfoJson;
+
+		const pokemonAbilities = abilities.map(({ ability }) => ability.name);
+		const pokemonMoves = moves.map(({ move }) => move.name);
+		const pokemonStats = stats.map(({ base_stat, stat }) => ({
+			name: stat.name,
+			value: base_stat,
+		}));
+
+		return {
+			abilities: pokemonAbilities,
+			moves: pokemonMoves,
+			stats: pokemonStats,
+		};
+	} catch (err) {
+		console.log(err);
+		return [];
 	}
-
-	evolutionData.push({
-		pokemon: {
-			...chain.species,
-			url: chain.species.url.replace('pokemon-species', 'pokemon'),
-		},
-		level,
-	});
-
-	return getRecursiveEvolutionData(
-		chain.evolves_to[0],
-		level + 1,
-		evolutionData
-	);
 };
 
-export const getPokemonEvolutions = async (id: number) => {
+export const getPokemonEvolutions = async (evolutionURL: string) => {
 	try {
-		const response = await fetch(`${POKEMON_EVOLUTION_URL}/${id}`);
+		const response = await fetch(evolutionURL);
 		const { chain } = await response.json();
 
 		const evolutions: PokemonEvolution[] = [];
+		let currentChain = chain;
 
-		getRecursiveEvolutionData(chain, 1, evolutions);
+		const traverseChain = (chain: EvolutionChainJson, level: number) => {
+			const pokemon = {
+				...chain.species,
+				url: chain.species.url.replace('pokemon-species', 'pokemon'),
+			};
+
+			evolutions.push({ pokemon, level });
+
+			if (chain.evolves_to.length > 0) {
+				for (const evolvedPokemon of chain.evolves_to) {
+					traverseChain(evolvedPokemon, level + 1);
+				}
+			}
+		};
+
+		traverseChain(currentChain, 1);
 
 		return evolutions;
 	} catch (err) {

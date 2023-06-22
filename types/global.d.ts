@@ -3,6 +3,13 @@ import { pokemonTypes } from '@/data/pokemonTypes';
 declare global {
 	type PokemonType = keyof typeof pokemonTypes;
 	type StatType = Exclude<keyof (typeof pokemonTypes)[PokemonType], 'image'>;
+	type PokemonAttribute =
+		| 'hp'
+		| 'attack'
+		| 'defense'
+		| 'special-attack'
+		| 'special-defense'
+		| 'speed';
 
 	type PokemonJson = {
 		name: string;
@@ -18,6 +25,33 @@ declare global {
 
 	interface UserInfo {
 		email: string;
+	}
+
+	// Abilities
+	interface PokemonAbility {
+		ability: {
+			name: string;
+			url: string;
+		};
+		is_hidden: boolean;
+		slot: number;
+	}
+
+	// Moves
+	interface PokemonMove {
+		move: {
+			name: string;
+			url: string;
+		};
+	}
+
+	// Stats
+	interface PokemonStat {
+		base_stat: number;
+		effort: number;
+		stat: {
+			name: PokemonAttribute;
+		};
 	}
 
 	// Evolutions

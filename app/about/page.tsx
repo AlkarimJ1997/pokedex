@@ -5,12 +5,12 @@ import avatarAnimation from '@/assets/animations/avatar.json';
 import Link from 'next/link';
 import { FaGithub, FaLinkedin, FaYoutube } from 'react-icons/fa';
 import { useEffect } from 'react';
-import { getPokemonEvolutions } from '@/utils/api/pokemon';
+import { getPokemonAbilitiesAndMoves, getPokemonEvolutions } from '@/utils/api/pokemon';
 
 const About = () => {
   useEffect(() => {
     const testLoad = async () => {
-      const response = await getPokemonEvolutions(1);
+      const response = await getPokemonAbilitiesAndMoves(1);
 
       console.log(response);
     }
