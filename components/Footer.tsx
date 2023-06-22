@@ -1,13 +1,17 @@
 'use client';
 
-import useStore from '@/hooks/useStore';
-import { auth } from '@/lib/firebase/config';
 import { signOut } from 'firebase/auth';
+import { usePathname } from 'next/navigation';
+import { auth } from '@/lib/firebase/config';
 import { MdOutlinePowerSettingsNew } from 'react-icons/md';
+import { tabRoutes } from '@/data/pokemonTabs';
+import useStore from '@/hooks/useStore';
 
 const Footer = () => {
 	const setUser = useStore(state => state.setUser);
 	const addToast = useStore(state => state.addToast);
+
+	const pathname = usePathname();
 
 	const handleLogout = () => {
 		signOut(auth);
@@ -23,7 +27,17 @@ const Footer = () => {
 			<div />
 			<ul
 				role='list'
-				className='flex h-full w-full border-x border-x-secondary-border'></ul>
+				className='grid h-full w-full auto-cols-fr grid-flow-col place-items-center border-x border-x-secondary-border text-slate-200'>
+				{pathname.startsWith('/pokemon') &&
+					tabRoutes.map(({ name, value }) => (
+						<li
+							key={name}
+							onClick={() => {}}
+							className='flex h-full w-full cursor-pointer items-center justify-center font-medium uppercase tracking-[0.2em] transition duration-300 ease-in-out hover:bg-accent active:bg-accent'>
+							{value}
+						</li>
+					))}
+			</ul>
 			<div>
 				<MdOutlinePowerSettingsNew
 					size={32}
