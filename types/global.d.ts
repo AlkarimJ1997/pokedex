@@ -27,6 +27,17 @@ declare global {
 		email: string;
 	}
 
+	// Pokemon Info
+	interface PokemonInfo {
+		id: number;
+		name: string;
+		image: string;
+		types: PokemonType[];
+		abilities: string[];
+		moves: string[];
+		stats: { name: string; value: number }[];
+	}
+
 	// Abilities
 	interface PokemonAbility {
 		ability: {

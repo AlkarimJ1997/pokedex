@@ -1,22 +1,37 @@
 'use client';
 
+import { useEffect } from 'react';
+import { FaGithub, FaLinkedin, FaYoutube } from 'react-icons/fa';
 import Lottie from 'lottie-react';
 import avatarAnimation from '@/assets/animations/avatar.json';
 import Link from 'next/link';
-import { FaGithub, FaLinkedin, FaYoutube } from 'react-icons/fa';
-import { useEffect } from 'react';
-import { getPokemonAbilitiesAndMoves, getPokemonEvolutions } from '@/utils/api/pokemon';
+import {
+	getPokemonEvolutionURL,
+	getPokemonEvolutions,
+	getPokemonInfo,
+	getPokemonLocations,
+} from '@/utils/api/pokemon';
 
 const About = () => {
-  useEffect(() => {
-    const testLoad = async () => {
-      const response = await getPokemonAbilitiesAndMoves(1);
+	useEffect(() => {
+		const testLoad = async () => {
+			const info = await getPokemonInfo(2);
+			const locations = await getPokemonLocations(2);
+			const evolutionURL = await getPokemonEvolutionURL(2);
+			const evolutionChain = await getPokemonEvolutions(evolutionURL);
 
-      console.log(response);
-    }
+			console.log({
+				...info,
+				encounters: locations,
+				evolution: evolutionChain,
+				evolutionLevel: evolutionChain.find(
+					({ pokemon }) => pokemon.name === info?.name
+				)?.level,
+			});
+		};
 
-    testLoad();
-  }, [])
+		testLoad();
+	}, []);
 
 	return (
 		<div className='about'>

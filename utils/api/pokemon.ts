@@ -1,6 +1,6 @@
 import {
-	POKEMON_EVOLUTION_URL,
 	POKEMON_SINGLE_URL,
+	POKEMON_SPECIES_URL,
 	POKEMON_URL,
 } from '@/constants';
 import { pokemonTypes } from '@/data/pokemonTypes';
@@ -14,6 +14,16 @@ type PokemonTypeJson = {
 };
 
 type PokemonInfoJson = {
+	id: number;
+	name: string;
+	types: PokemonTypeJson[];
+	sprites: {
+		other: {
+			home: {
+				front_default: string;
+			};
+		};
+	};
 	abilities: PokemonAbility[];
 	moves: PokemonMove[];
 	stats: PokemonStat[];
@@ -22,6 +32,12 @@ type PokemonInfoJson = {
 type EncounterJson = {
 	location_area: {
 		name: string;
+		url: string;
+	};
+};
+
+type PokemonSpeciesJson = {
+	evolution_chain: {
 		url: string;
 	};
 };
@@ -67,6 +83,36 @@ export const getPokemonData = async (pokemons: PokemonJson[]) => {
 	}
 };
 
+export const getPokemonInfo = async (id: number) => {
+	try {
+		const response = await fetch(`${POKEMON_SINGLE_URL}/${id}`);
+		const json = (await response.json()) as PokemonInfoJson;
+
+		const { name, types, sprites, abilities, moves, stats } = json;
+
+		const pokemonTypes = types.map(({ type }) => type.name);
+		const pokemonAbilities = abilities.map(({ ability }) => ability.name);
+		const pokemonMoves = moves.map(({ move }) => move.name);
+		const pokemonStats = stats.map(({ base_stat, stat }) => ({
+			name: stat.name,
+			value: base_stat,
+		}));
+
+		return {
+			id,
+			name,
+			image: sprites.other.home.front_default,
+			types: pokemonTypes,
+			abilities: pokemonAbilities,
+			moves: pokemonMoves,
+			stats: pokemonStats,
+		} as PokemonInfo;
+	} catch (err) {
+		console.log(err);
+		return null;
+	}
+};
+
 export const getPokemonLocations = async (id: number) => {
 	try {
 		const response = await fetch(`${POKEMON_SINGLE_URL}/${id}/encounters`);
@@ -81,27 +127,15 @@ export const getPokemonLocations = async (id: number) => {
 	}
 };
 
-export const getPokemonAbilitiesAndMoves = async (id: number) => {
+export const getPokemonEvolutionURL = async (id: number) => {
 	try {
-		const response = await fetch(`${POKEMON_SINGLE_URL}/${id}`);
-		const { abilities, moves, stats } =
-			(await response.json()) as PokemonInfoJson;
+		const response = await fetch(`${POKEMON_SPECIES_URL}/${id}`);
+		const json = (await response.json()) as PokemonSpeciesJson;
 
-		const pokemonAbilities = abilities.map(({ ability }) => ability.name);
-		const pokemonMoves = moves.map(({ move }) => move.name);
-		const pokemonStats = stats.map(({ base_stat, stat }) => ({
-			name: stat.name,
-			value: base_stat,
-		}));
-
-		return {
-			abilities: pokemonAbilities,
-			moves: pokemonMoves,
-			stats: pokemonStats,
-		};
+		return json.evolution_chain.url;
 	} catch (err) {
 		console.log(err);
-		return [];
+		return '';
 	}
 };
 
