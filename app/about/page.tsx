@@ -11,13 +11,15 @@ import {
 	getPokemonInfo,
 	getPokemonLocations,
 } from '@/utils/api/pokemon';
+import extractColors, { BrowserOptions } from 'extract-colors';
+import { getAccentColor } from '@/utils/helpers';
 
 const About = () => {
 	useEffect(() => {
 		const testLoad = async () => {
-			const info = await getPokemonInfo(2);
-			const locations = await getPokemonLocations(2);
-			const evolutionURL = await getPokemonEvolutionURL(2);
+			const info = await getPokemonInfo(1);
+			const locations = await getPokemonLocations(1);
+			const evolutionURL = await getPokemonEvolutionURL(1);
 			const evolutionChain = await getPokemonEvolutions(evolutionURL);
 
 			console.log({
@@ -28,6 +30,8 @@ const About = () => {
 					({ pokemon }) => pokemon.name === info?.name
 				)?.level,
 			});
+
+			console.log(await getAccentColor(info?.image!));
 		};
 
 		testLoad();
