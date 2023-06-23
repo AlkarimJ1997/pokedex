@@ -10,6 +10,7 @@ import clsx from 'clsx';
 import useStore from '@/hooks/useStore';
 import Image from 'next/image';
 import Icon from '@/components/Icon';
+import { pokemonTabs } from '@/constants';
 
 interface PokemonCardProps {
 	id: number;
@@ -26,12 +27,13 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 	const addToast = useStore(state => state.addToast);
 	const addToList = useStore(state => state.addToList);
 	const removeFromList = useStore(state => state.removeFromList);
+	const setPokemonTab = useStore(state => state.setPokemonTab);
 
 	const pathname = usePathname();
 	const router = useRouter();
 
 	const plusRoute = useMemo(() => {
-		return pathname === '/pokemon' || pathname === '/search';
+		return pathname.startsWith('/pokemon') || pathname === '/search';
 	}, [pathname]);
 
 	const handleCompareAdd = () => {
@@ -40,6 +42,11 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 			type: 'custom',
 			message: `${capitalize(name)} added to compare!`,
 		});
+	};
+
+	const handleRouteNavigation = () => {
+		setPokemonTab(pokemonTabs.description);
+		router.push(`/pokemon/${id}`);
 	};
 
 	const handleListAdd = () => {
@@ -109,7 +116,7 @@ const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
 					fill
 					src={image}
 					alt={name}
-					onClick={() => router.push(`/pokemon/${id}`)}
+					onClick={handleRouteNavigation}
 					className='object-contain'
 					loading='lazy'
 				/>

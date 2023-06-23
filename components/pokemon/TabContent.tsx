@@ -15,7 +15,9 @@ const TabContent = ({ currentPokemon }: TabContentProps) => {
 
 	return (
 		<section>
-			{pokemonTab === 'description' && <Description />}
+			{pokemonTab === 'description' && (
+				<Description currentPokemon={currentPokemon} />
+			)}
 			{pokemonTab === 'evolution' && (
 				<Evolution currentPokemon={currentPokemon} />
 			)}

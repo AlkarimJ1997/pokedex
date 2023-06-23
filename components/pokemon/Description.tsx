@@ -1,5 +1,9 @@
-const Description = () => {
-	return <div>Description</div>;
+interface DescriptionProps {
+	currentPokemon: PokemonFullData;
+}
+
+const Description = ({ currentPokemon }: DescriptionProps) => {
+	return <div>{currentPokemon.name}</div>;
 };
 
 export default Description;
