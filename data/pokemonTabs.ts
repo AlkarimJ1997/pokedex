@@ -4,5 +4,5 @@ export const tabRoutes = [
 	{ name: pokemonTabs.description, value: 'Description' },
 	{ name: pokemonTabs.evolution, value: 'Evolution' },
 	{ name: pokemonTabs.locations, value: 'Catching' },
-	{ name: pokemonTabs.moves, value: 'Capable Moves' },
+	{ name: pokemonTabs.moves, value: 'Moves' },
 ] as const;

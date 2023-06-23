@@ -29,22 +29,24 @@ const Footer = () => {
 	return (
 		<footer className='fixed bottom-0 z-50 grid h-footerHeight w-full grid-cols-[5rem_auto_5rem] place-items-center border-t border-t-secondary-border'>
 			<div />
-			<ul
-				role='list'
-				className='grid h-full w-full auto-cols-fr grid-flow-col place-items-center border-x border-x-secondary-border text-slate-200'>
-				{pathname.startsWith('/pokemon') &&
-					tabRoutes.map(({ name, value }) => (
-						<li
-							key={name}
-							onClick={() => setPokemonTab(name)}
-							className={clsx(
-								'flex h-full w-full cursor-pointer items-center justify-center font-medium uppercase tracking-[0.2em] transition duration-300 ease-in-out hover:bg-accent',
-								pokemonTab === name && 'bg-accent'
-							)}>
-							{value}
-						</li>
-					))}
-			</ul>
+			<div className='h-full w-full border-x border-x-secondary-border text-slate-200'>
+				<ul
+					role='list'
+					className='hidden h-full w-full auto-cols-fr grid-flow-col place-items-center md:grid'>
+					{pathname.startsWith('/pokemon') &&
+						tabRoutes.map(({ name, value }) => (
+							<li
+								key={name}
+								onClick={() => setPokemonTab(name)}
+								className={clsx(
+									'flex h-full w-full cursor-pointer items-center justify-center font-medium uppercase tracking-[0.2em] transition duration-300 ease-in-out hover:bg-accent',
+									pokemonTab === name && 'bg-accent'
+								)}>
+								{value}
+							</li>
+						))}
+				</ul>
+			</div>
 			<div>
 				<MdOutlinePowerSettingsNew
 					size={32}
