@@ -73,6 +73,19 @@ declare global {
 			url: string;
 		};
 	}
+
+	// Full Pokemon Data (for Pokemon Page)
+	interface PokemonFullData {
+		id: number;
+		name: string;
+		image: string;
+		types: PokemonType[];
+		abilities: string[];
+		moves: string[];
+		stats: { name: string; value: number }[];
+		evolution: PokemonEvolution[];
+		evolutionLevel: number;
+	}
 }
 
 export {};

@@ -6,10 +6,14 @@ import { auth } from '@/lib/firebase/config';
 import { MdOutlinePowerSettingsNew } from 'react-icons/md';
 import { tabRoutes } from '@/data/pokemonTabs';
 import useStore from '@/hooks/useStore';
+import clsx from 'clsx';
 
 const Footer = () => {
+	const pokemonTab = useStore(state => state.pokemonTab);
+
 	const setUser = useStore(state => state.setUser);
 	const addToast = useStore(state => state.addToast);
+	const setPokemonTab = useStore(state => state.setPokemonTab);
 
 	const pathname = usePathname();
 
@@ -32,8 +36,11 @@ const Footer = () => {
 					tabRoutes.map(({ name, value }) => (
 						<li
 							key={name}
-							onClick={() => {}}
-							className='flex h-full w-full cursor-pointer items-center justify-center font-medium uppercase tracking-[0.2em] transition duration-300 ease-in-out hover:bg-accent active:bg-accent'>
+							onClick={() => setPokemonTab(name)}
+							className={clsx(
+								'flex h-full w-full cursor-pointer items-center justify-center font-medium uppercase tracking-[0.2em] transition duration-300 ease-in-out hover:bg-accent',
+								pokemonTab === name && 'bg-accent'
+							)}>
 							{value}
 						</li>
 					))}

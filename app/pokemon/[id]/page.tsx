@@ -1,10 +1,11 @@
 import {
-  getPokemonInfo,
+	getPokemonInfo,
 	getPokemonLocations,
 	getPokemonEvolutionURL,
 	getPokemonEvolutions,
 } from '@/utils/api/pokemon';
 import ColorSetter from '@/components/ColorSetter';
+import TabContent from '@/components/pokemon/TabContent';
 
 interface IParams {
 	id: string;
@@ -33,12 +34,12 @@ const Pokemon = async ({ params }: PokemonProps) => {
 		evolutionLevel: evolutionChain.find(({ pokemon }) => {
 			return pokemon.name === info?.name;
 		})?.level,
-	};
+	} as PokemonFullData;
 
 	return (
 		<div>
-			<h1 className='text-2xl text-slate-200'>{currentPokemon.name}</h1>
 			<ColorSetter src={info?.image!} />
+			<TabContent currentPokemon={currentPokemon} />
 		</div>
 	);
 };
