@@ -3,25 +3,23 @@ import { getPokemonData } from '@/utils/api/pokemon';
 import PokemonCard from '@/components/PokemonCard';
 
 interface EvolutionProps {
-	currentPokemon: PokemonFullData;
+	evolutionData: PokemonJson[];
 }
 
-const Evolution = ({ currentPokemon }: EvolutionProps) => {
+const Evolution = ({ evolutionData }: EvolutionProps) => {
 	const [pokemonLine, setPokemonLine] = useState<Pokemon[]>([]);
 
 	useEffect(() => {
-		if (!currentPokemon) return;
+		if (evolutionData.length === 0) return;
 
 		const loadPokemonLine = async () => {
-			const line = await getPokemonData(
-				currentPokemon.evolution.map(({ pokemon }) => pokemon)
-			);
+			const line = await getPokemonData(evolutionData);
 
 			setPokemonLine(line);
 		};
 
 		loadPokemonLine();
-	}, [currentPokemon]);
+	}, [evolutionData]);
 
 	return (
 		<div className='max-h-[80vh] overflow-y-scroll pb-4 uppercase text-slate-200 sm:max-h-[85vh] lg:pb-[min(12vh,3rem)]'>

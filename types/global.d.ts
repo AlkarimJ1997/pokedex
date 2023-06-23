@@ -80,11 +80,12 @@ declare global {
 		name: string;
 		image: string;
 		types: PokemonType[];
+		encounters: string[];
+		evolution: PokemonEvolution[];
+		evolutionLevel: number;
 		abilities: string[];
 		moves: string[];
 		stats: { name: string; value: number }[];
-		evolution: PokemonEvolution[];
-		evolutionLevel: number;
 	}
 }
 
