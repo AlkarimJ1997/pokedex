@@ -12,6 +12,7 @@ export interface PokemonState {
 	filter: string;
 	compareQueue: Pokemon[];
 	userPokemon: Pokemon[];
+	currentPokemonId: number;
 	setPokemon: (pokemon: Pokemon[]) => void;
 	setFilter: (filter: string) => void;
 	addToCompare: (pokemon: Pokemon) => void;
@@ -19,6 +20,7 @@ export interface PokemonState {
 	setUserPokemon: (pokemon: Pokemon[]) => void;
 	addToList: (pokemon: Pokemon, userInfo: UserInfo, callback: Resolver) => void;
 	removeFromList: (pokemonId: number, callback: Resolver) => void;
+	setCurrentPokemonId: (id: number) => void;
 }
 
 export const createPokemonSlice: StateCreator<PokemonState> = set => ({
@@ -27,6 +29,7 @@ export const createPokemonSlice: StateCreator<PokemonState> = set => ({
 	filter: '',
 	compareQueue: [],
 	userPokemon: [],
+	currentPokemonId: 1,
 	setPokemon: pokemon => set({ pokemon, filteredPokemon: pokemon }),
 	setFilter: filter =>
 		set(state => ({
@@ -74,4 +77,5 @@ export const createPokemonSlice: StateCreator<PokemonState> = set => ({
 
 		callback(false);
 	},
+	setCurrentPokemonId: id => set({ currentPokemonId: id }),
 });

@@ -1,14 +1,17 @@
 'use client';
 
-import { useRef, useMemo, useEffect } from 'react';
+import { useRef, useMemo, useEffect, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { navLinks } from '@/data/navLinks';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import pokeballIcon from '@/assets/pokeball-icon.png';
 import Image from 'next/image';
 import Link from 'next/link';
+import useStore from '@/hooks/useStore';
 
 const Navbar = () => {
+	const currentPokemonId = useStore(state => state.currentPokemonId);
+
 	const pathname = usePathname();
 	const slidingRef = useRef<HTMLDivElement>(null);
 
@@ -25,6 +28,17 @@ const Navbar = () => {
 
 		slidingRef.current.style.left = `calc(${activeLink} * ${sliderWidth}%)`;
 	}, [slidingRef, pathname, sliderWidth]);
+
+	const setNavPath = useCallback(
+		(path: string) => {
+			if (path === '/pokemon') {
+				return `/pokemon/${currentPokemonId}`;
+			}
+
+			return path;
+		},
+		[currentPokemonId]
+	);
 
 	return (
 		<header>
@@ -44,7 +58,7 @@ const Navbar = () => {
 							<li
 								key={i}
 								className='cursor-pointer font-medium uppercase tracking-widest'>
-								<Link href={path}>{name}</Link>
+								<Link href={setNavPath(path)}>{name}</Link>
 							</li>
 						))}
 						<div

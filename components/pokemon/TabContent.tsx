@@ -5,6 +5,7 @@ import Description from '@/components/pokemon/Description';
 import Evolution from '@/components/pokemon/Evolution';
 import Location from '@/components/pokemon/Location';
 import CapableMoves from '@/components/pokemon/CapableMoves';
+import { useEffect } from 'react';
 
 interface TabContentProps {
 	currentPokemon: PokemonFullData;
@@ -12,6 +13,13 @@ interface TabContentProps {
 
 const TabContent = ({ currentPokemon }: TabContentProps) => {
 	const pokemonTab = useStore(state => state.pokemonTab);
+	const setCurrentPokemonId = useStore(state => state.setCurrentPokemonId);
+
+	useEffect(() => {
+		if (!currentPokemon || !setCurrentPokemonId) return;
+
+		setCurrentPokemonId(currentPokemon.id);
+	}, [currentPokemon, setCurrentPokemonId]);
 
 	return (
 		<section>
