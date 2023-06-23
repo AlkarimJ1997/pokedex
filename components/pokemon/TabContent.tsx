@@ -38,7 +38,12 @@ const TabContent = ({ currentPokemon }: TabContentProps) => {
 			{pokemonTab === 'locations' && (
 				<Location pokemonLocations={currentPokemon.encounters} />
 			)}
-			{pokemonTab === 'moves' && <CapableMoves />}
+			{pokemonTab === 'moves' && (
+				<CapableMoves
+					pokemonMoves={currentPokemon.moves}
+					pokemonAbilities={currentPokemon.abilities}
+				/>
+			)}
 		</section>
 	);
 };
